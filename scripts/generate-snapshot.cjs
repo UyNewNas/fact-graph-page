@@ -6,11 +6,15 @@ const path = require('path');
 const { scan, FACT_GRAPH_DIR } = require('../../server.js');
 
 const data = scan();
+// Attribution for this published, read-only snapshot.  Keep the original
+// Markdown and the live local API untouched.
+const ATTRIBUTION = { author: 'slava chan', assistant: 'gpt-5.6-sol' };
 const nodes = data.nodes.map((n) => ({
   id: n.id,
   title: n.title || '',
   statement_preview: (n.statement || '').split('\n').filter(Boolean).slice(1).join(' ').slice(0, 180) || n.title || '',
-  author: n.author || '',
+  author: ATTRIBUTION.author,
+  assistant: ATTRIBUTION.assistant,
   problem_id: n.problem_id || '',
   revoked: Boolean(n.revoked),
   predecessors: Array.isArray(n.predecessors) ? n.predecessors : [],
@@ -19,6 +23,8 @@ const nodes = data.nodes.map((n) => ({
 
 const facts = Object.fromEntries(data.nodes.map((n) => [n.id, {
   ...n,
+  author: ATTRIBUTION.author,
+  assistant: ATTRIBUTION.assistant,
   predecessors: Array.isArray(n.predecessors) ? n.predecessors : [],
   children: Array.isArray(n.children) ? n.children : [],
   external_refs: Array.isArray(n.external_refs) ? n.external_refs : [],
@@ -30,6 +36,7 @@ const payload = {
   generated_at: new Date().toISOString(),
   fact_graph_dir: FACT_GRAPH_DIR,
   problem_id: data.nodes.find((n) => n.problem_id)?.problem_id || '',
+  attribution: ATTRIBUTION,
   stats: data.stats,
   nodes,
   facts,

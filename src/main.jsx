@@ -33,8 +33,8 @@ function FactNode({ data, selected }) {
 const nodeTypes={fact:FactNode}
 function Inspector({ node, facts, isStatic, onClose, onJump }) {
   const [copyState,setCopyState]=useState(''),[liveDetail,setLiveDetail]=useState(null),[detailError,setDetailError]=useState('')
+  useEffect(()=>{if(!node||isStatic){setLiveDetail(null);setDetailError('');setCopyState('');return}setLiveDetail(null);setDetailError('');setCopyState('');fetch('/api/fact/'+encodeURIComponent(node.id),{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(new Error('HTTP '+r.status))).then(r=>setLiveDetail(r.fact)).catch(e=>setDetailError(e.message))},[node,isStatic])
   if (!node) return null
-  useEffect(()=>{if(!node||isStatic){setLiveDetail(null);setDetailError('');return}setLiveDetail(null);setDetailError('');fetch('/api/fact/'+encodeURIComponent(node.id),{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject(new Error('HTTP '+r.status))).then(r=>setLiveDetail(r.fact)).catch(e=>setDetailError(e.message))},[node,isStatic])
   const detail=isStatic?facts[node.id]:liveDetail; const refs=safeArray(detail?.external_refs); const glossary=detail?.glossary&&typeof detail.glossary==='object'?detail.glossary:{}
   const glossaryText=Object.entries(glossary).map(([k,v])=>`${k}: ${v}`).join('\n')
   const contentText=`id:${node.id}\nGlossary：${glossaryText}\nStatement：${detail?.statement||''}\nProof：${detail?.proof||''}`

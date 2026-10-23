@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "snapshot": "node scripts/generate-snapshot.cjs",
+    "check:graph": "node scripts/check-goldbach-graph.mjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"

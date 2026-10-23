@@ -24,8 +24,9 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      # fact-graph.json is the committed, auditable snapshot. The source
-      # workspace regenerates it before publishing an updated snapshot.
+      # Both graphs are committed snapshots; validate the dashboard export
+      # and legacy compatibility before building the static Pages bundle.
+      - run: npm run check:graph
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4

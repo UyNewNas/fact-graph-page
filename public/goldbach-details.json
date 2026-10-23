@@ -1,0 +1,758 @@
+{
+  "schema": "goldbach-graph-details-v1",
+  "sourceCommit": "24217fc9b7c385689c992c4ea8c2d1f6026db3db",
+  "reviewedAt": "2026-10-22T02:01:52.600117+00:00",
+  "snapshotAt": "2026-10-23T06:06:00Z",
+  "dashboardUrl": "https://goldbach-proof-tree-oct21-timot.famous-pine-1741.chatgpt.site",
+  "sourceFiles": {
+    "dependencies.json": {
+      "path": "dist/dependencies.json",
+      "sha256": "e2bbf3071b6eb1d97fad3782aa80dd124d9f6cc9de8baa443fc93d96097e2df4"
+    },
+    "progress.json": {
+      "path": "dist/progress.json",
+      "sha256": "ff6fc49f4cbe944eb25a2fa1cc6ac28cd1ff90251d820a974fa561a4ce7ef6fd"
+    }
+  },
+  "nodes": {
+    "actual-fourier": {
+      "criteria": [
+        "保留实际 J=4 导数、固定支撑和完整四阶算子成本。",
+        "这项结果不替代非零谱估计或原 C / K。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3SmoothReciprocityLogFourierL1",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SmoothReciprocityLogFourierL1.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T073108944025Z/receipt.json"
+        }
+      ]
+    },
+    "all-licenses": {
+      "criteria": [
+        "全部原分支、选择器、缓冲和误差支付在同一策略下成立。",
+        "与实际 K / C 均值链衔接。"
+      ]
+    },
+    "chen10-11": {},
+    "chen7-large": {},
+    "chen7-small": {
+      "links": [
+        {
+          "label": "Lean 源码 · CurrentChenUpsilon7SourceErrorBudget",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/CurrentChenUpsilon7SourceErrorBudget.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T043422894136Z/receipt.json"
+        }
+      ]
+    },
+    "ci": {
+      "links": [
+        {
+          "label": "PR 检查",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/pull/5/checks"
+        }
+      ]
+    },
+    "corollaries": {},
+    "crt": {
+      "links": [
+        {
+          "label": "Lean 源码 · Part3ComplexCRTConsumer",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3ComplexCRTConsumer.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261015T085748716666Z/receipt.json"
+        },
+        {
+          "label": "Lean 源码 · Part3CommonPoisson",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3CommonPoisson.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261015T103752259559Z/receipt.json"
+        }
+      ]
+    },
+    "distribution-assembly": {
+      "criteria": [
+        "覆盖原参数全范围，全部辅助前提均有证明。"
+      ]
+    },
+    "final-no-holes": {
+      "criteria": [
+        "原始目标每项均有权威完成证据。",
+        "无条件 Theorem1.1 及原推论真正闭合。"
+      ]
+    },
+    "finite-dictionaries": {
+      "links": [
+        {
+          "label": "Lean 源码 · FirstExitFrontierTupleReindex",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/FirstExitFrontierTupleReindex.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T022230029394Z/receipt.json"
+        }
+      ]
+    },
+    "finite-integrals": {
+      "links": [
+        {
+          "label": "Lean 源码 · ActualExtendedThirdClosedIntegral",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/ActualExtendedThirdClosedIntegral.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261015T103207622016Z/receipt.json"
+        },
+        {
+          "label": "Lean 源码 · ActualExtendedThirdKernelL1Convergence",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/ActualExtendedThirdKernelL1Convergence.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261015T185507440390Z/receipt.json"
+        }
+      ]
+    },
+    "full-build": {
+      "criteria": [
+        "固定 Lean / mathlib / goldbach 版本。",
+        "完整目标及所需依赖通过内核、传递公理检查。"
+      ]
+    },
+    "gcd-payments": {
+      "links": [
+        {
+          "label": "Lean 源码 · Part3SharedFirstFactorZeroCovariancePayment",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SharedFirstFactorZeroCovariancePayment.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261020T083337225033Z/receipt.json"
+        },
+        {
+          "label": "Lean 源码 · Part3SharedFirstFactorLargeSupportedDeletion",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SharedFirstFactorLargeSupportedDeletion.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261020T094126329737Z/receipt.json"
+        }
+      ]
+    },
+    "generic-fourier": {
+      "criteria": [
+        "常数先于全部 Schwartz 函数。",
+        "真实四阶算子的 L2 控制 Fourier L1，无目标范数供应器。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3SchwartzFourierL1Sobolev",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SchwartzFourierL1Sobolev.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T065931273250Z/receipt.json"
+        }
+      ]
+    },
+    "mellin": {
+      "criteria": [
+        "保留原 γ / CRT / gcd 掩码与真实外部振幅。",
+        "核对全部平方、求和以及原物理参数范围。"
+      ]
+    },
+    "mixed": {
+      "links": [
+        {
+          "label": "Lean 源码 · Part3SmoothReciprocityLogMixed",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SmoothReciprocityLogMixed.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T051333019645Z/receipt.json"
+        }
+      ]
+    },
+    "nonzero": {
+      "criteria": [
+        "真实谱核的消去与所需能量节省成立。",
+        "保留导子、根掩码、gcd、系数能量与对数损失。"
+      ]
+    },
+    "ordinary-89": {
+      "links": [
+        {
+          "label": "Lean 源码 · CurrentChenUpsilon8OrdinaryUpperMean",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/CurrentChenUpsilon8OrdinaryUpperMean.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261018T051636519308Z/receipt.json"
+        },
+        {
+          "label": "Lean 源码 · CurrentChenUpsilon9OrdinaryUpperMean",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/CurrentChenUpsilon9OrdinaryUpperMean.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261015T204635983883Z/receipt.json"
+        }
+      ]
+    },
+    "ordinary-six": {
+      "links": [
+        {
+          "label": "Lean 源码 · CurrentChenOrdinaryInitialLedger",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/CurrentChenOrdinaryInitialLedger.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261015T092249131535Z/receipt.json"
+        },
+        {
+          "label": "Lean 源码 · CurrentChenUpsilon6OrdinaryMean",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/CurrentChenUpsilon6OrdinaryMean.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261015T095721119660Z/receipt.json"
+        }
+      ]
+    },
+    "profile": {
+      "links": [
+        {
+          "label": "Lean 源码 · Part3SmoothReciprocityProfile",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SmoothReciprocityProfile.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T041948852772Z/receipt.json"
+        }
+      ]
+    },
+    "regularity": {
+      "links": [
+        {
+          "label": "Lean 源码 · Part3SmoothReciprocityLogRegularity",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SmoothReciprocityLogRegularity.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T054859461484Z/receipt.json"
+        }
+      ]
+    },
+    "root": {
+      "criteria": [
+        "保留原 C、K、b 阈值、量词与计数口径。",
+        "实际证明 hLower、hUpper，完成选定 Chen 账本与坏半素数上界。",
+        "原主定理及三项推论无条件成立。",
+        "固定版本完整构建与内核/传递公理检查通过，无 sorry / 新公理 / 隐藏供应器。"
+      ],
+      "links": [
+        {
+          "label": "形式化仓库",
+          "url": "https://github.com/UyNewNas/goldbach-formalization"
+        },
+        {
+          "label": "原手稿仓库",
+          "url": "https://github.com/UyNewNas/chen-imbalanced-semiprimes"
+        },
+        {
+          "label": "PR #5",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/pull/5"
+        }
+      ]
+    },
+    "same-policy": {
+      "criteria": [
+        "保留原策略许可证。",
+        "把真实计数接到同一策略的极限与积分界。"
+      ]
+    },
+    "selected-causal": {},
+    "sharp-c": {
+      "criteria": [
+        "对每个 ε>0 及充分大偶数 N，证明 (C−ε) H_N ≤ D12(N)。",
+        "保留原精确常数和计数口径。"
+      ],
+      "links": [
+        {
+          "label": "当前主定理 · 仍含 hLower / hUpper",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/CurrentMainTheorem.lean#L278"
+        }
+      ]
+    },
+    "sharp-k": {
+      "criteria": [
+        "证明 RealB(b,N) ≤ (K log(1/b)+ε) H_N。",
+        "固定 b 在先，每个 ε>0 及充分大偶数 N；不换大常数。"
+      ],
+      "links": [
+        {
+          "label": "当前主定理 · 仍含 hLower / hUpper",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/CurrentMainTheorem.lean#L278"
+        }
+      ]
+    },
+    "squared": {
+      "links": [
+        {
+          "label": "Lean 源码 · Part3SharedFirstFactorSmallCoreSquaredFinite",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SharedFirstFactorSmallCoreSquaredFinite.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T033854539553Z/receipt.json"
+        }
+      ]
+    },
+    "unconditional": {
+      "links": [
+        {
+          "label": "当前主定理 · 仍含 hLower / hUpper",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/CurrentMainTheorem.lean#L278"
+        }
+      ]
+    },
+    "upper-components": {
+      "links": [
+        {
+          "label": "Lean 源码 · ActualUpperPolicyFiniteBridge",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/ActualUpperPolicyFiniteBridge.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261018T044519829991Z/receipt.json"
+        }
+      ]
+    },
+    "common-envelope": {
+      "criteria": [
+        "不能由 sup ∫ 偷换成 ∫ sup。",
+        "全部实际类型、安全性与三项传递公理检查通过。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3SmoothReciprocityLogFourierEnvelope",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SmoothReciprocityLogFourierEnvelope.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T084154211075Z/receipt.json"
+        }
+      ]
+    },
+    "decay-jet": {
+      "criteria": [
+        "常数先于全部变化参数，保留逐阶调制成本。",
+        "源、对象、所有类型与三项传递公理均匹配。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3SmoothReciprocityLogDecayJet",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SmoothReciprocityLogDecayJet.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T081229674587Z/receipt.json"
+        }
+      ]
+    },
+    "decay-envelope": {
+      "criteria": [
+        "常数先于全部变化参数和频率，保留完整2π归一化。",
+        "不交换 sup 与积分；实际全部类型和三项公理检查通过。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3SmoothReciprocityLogDecayingFourierEnvelope",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SmoothReciprocityLogDecayingFourierEnvelope.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T091033312999Z/receipt.json"
+        }
+      ]
+    },
+    "resonance-count": {
+      "criteria": [
+        "覆盖原 dyadic 端点与有序对，不把目标界作为假设。",
+        "完成真实有限计数的正式核验与声明审计；operator 准备不等于执行。"
+      ]
+    },
+    "decay-resonance": {
+      "criteria": [
+        "精确支付 dyadic、除数、对数和外部振幅。",
+        "不把这项共振支付当作非共振谱估计。"
+      ]
+    },
+    "k-finite": {
+      "criteria": [
+        "精确保留原 carrier、目标素数删除、p₀p₁p₂³ 门及三项权重。",
+        "同策略均值与原锐 K 常数仍 OPEN。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · ActualExtendedThirdAdmittedOwnCubeBridge",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/ActualExtendedThirdAdmittedOwnCubeBridge.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T190051246938Z/receipt.json"
+        }
+      ]
+    },
+    "chen7-finite": {
+      "criteria": [
+        "真实有限切换通过全部实际声明与完整内核核验。",
+        "模数至少 N^0.708 的 AP 主均值仍独立待证。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · CurrentChenUpsilon7LargePrimeSwitch",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/CurrentChenUpsilon7LargePrimeSwitch.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T173641860463Z/receipt.json"
+        }
+      ]
+    },
+    "chen1011-finite": {},
+    "admitted-frontier-parent": {
+      "criteria": [
+        "原选择策略、粗素数载体与精确权重不变。",
+        "该有限父输入不提供原策略主均值或锐 K 常数。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · FirstExitAdmittedFrontierTuples",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/FirstExitAdmittedFrontierTuples.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T165427078415Z/receipt.json"
+        }
+      ]
+    },
+    "supported-cauchy": {
+      "criteria": [
+        "使用完整正行平方，不比较带符号非共振块。",
+        "严格编译与完整实际声明审计通过。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3SharedFirstFactorSupportedCoreCauchy",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SharedFirstFactorSupportedCoreCauchy.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T100957039679Z/receipt.json"
+        }
+      ]
+    },
+    "cost-algebra": {
+      "criteria": [
+        "原成本归一化与零模支付通过全部实际声明审计。",
+        "这不提供实际谱界、原 C / K 或非零7/32估计。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3NonresonantManuscriptCostAlgebra",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3NonresonantManuscriptCostAlgebra.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T105915621165Z/receipt.json"
+        }
+      ]
+    },
+    "q1-audit": {
+      "criteria": [
+        "区分有限 source-only 组装与实际解析估计。",
+        "不把 source review 或 outsideEnergy 复用当成真实消去、saving、原全 κ M2 或主定理证明。"
+      ]
+    },
+    "general-d": {
+      "criteria": [
+        "A 由实际 g 与 supportedPart 构造，保留单位条件和完整慢相。",
+        "不提供实际非零谱估计或原 C / K。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3SharedFirstFactorGeneralDRootPacket",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SharedFirstFactorGeneralDRootPacket.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T112413984823Z/receipt.json"
+        }
+      ]
+    },
+    "external-reuse": {
+      "criteria": [
+        "区分已验收提交、不同提交的源码声明和本项目实际导入。",
+        "保持原 C、K、模数范围和掩码；可用原语须核对完整前提。"
+      ],
+      "links": [
+        {
+          "label": "外部官方双内核评测日志",
+          "url": "https://github.com/leanprover/lean-eval-submissions/actions/runs/34135760424/job/101792559198"
+        }
+      ]
+    },
+    "paired-fourier": {
+      "criteria": [
+        "成对相位、负根、慢相与实部四分支通过全部实际声明检查。",
+        "不供应目标恒等式；谱估计及外部闭包仍未证明。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3SharedFirstFactorGeneralDPairedFourier",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SharedFirstFactorGeneralDPairedFourier.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T184139632046Z/receipt.json"
+        }
+      ]
+    },
+    "row-adapter": {
+      "criteria": [
+        "不供应目标相位等式，不丢失共轭分支与原 carrier。",
+        "全部实际声明通过严格核验后才可标绿；谱估计仍 OPEN。"
+      ],
+      "links": [
+        {
+          "label": "候选 Lean 源",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SharedFirstFactorGeneralDRowAdapter.lean"
+        }
+      ]
+    },
+    "supported-row-consumer": {
+      "criteria": [
+        "从原外标签域导出正性，不增加域假设。",
+        "父模块验收后对全部实际声明作严格内核检查；这不提供谱估计。"
+      ],
+      "links": [
+        {
+          "label": "候选 Lean 源",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3SharedFirstFactorGeneralDSupportedRowConsumer.lean"
+        }
+      ]
+    },
+    "weighted-refined-energy": {
+      "criteria": [
+        "核对原加权能量输入与实际父模块；不得冒称负责人 active。",
+        "完整 Mellin 成本重组与非零谱估计仍待证明。"
+      ]
+    },
+    "common-p-shifted-moment": {
+      "criteria": [
+        "静态审查只确认各自有限及 capped 适用范围，不能当作 kernel 验收。",
+        "shifted-26 是替代 supplier；一般 q、完整 κ、retained variance、非零谱与主定理仍未完成。"
+      ]
+    },
+    "common-p-row-geometry": {
+      "criteria": [
+        "保留实际行域、支持与正性条件。",
+        "不得从 row geometry 外推 M2 均值或主谱结论。"
+      ]
+    },
+    "common-p-finite-fold": {
+      "criteria": [
+        "classifier PASS 不等于严格编译或 kernel 验收。",
+        "有限折叠仍需与混合矩 Cauchy、对数吸收及原全 κ 消费者衔接。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3CommonPM2FiniteFold",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3CommonPM2FiniteFold.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T235048205214Z/receipt.json"
+        }
+      ]
+    },
+    "tau-truncation": {
+      "criteria": [
+        "区分 acceptance CP 与原 audit receipt。",
+        "不外推为短区间矩、native means、E1 或主定理。"
+      ]
+    },
+    "tau-cardinality": {
+      "criteria": [
+        "cardinality 与 fiber 共用同一已验收模块，不重复计数或编译。",
+        "仅对本有限 τ 源结论标绿；E1、M2、谱与主定理仍开放。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3ElementaryTauDeletionFiber",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3ElementaryTauDeletionFiber.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T210710520017Z/receipt.json"
+        }
+      ]
+    },
+    "tau-deletion-fiber": {
+      "criteria": [
+        "保留 τ-core 输入与有限基数义务。",
+        "不外推为 E1、解析 M2、谱估计或主定理。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3ElementaryTauDeletionFiber",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3ElementaryTauDeletionFiber.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T210710520017Z/receipt.json"
+        }
+      ]
+    },
+    "elementary-shifted-moment": {
+      "criteria": [
+        "区分已验收自然端点有限结论与未验收后续子件。",
+        "保持 alternative 身份；完整解析 E1/M2、retained variance 与非零谱仍开放。"
+      ]
+    },
+    "elementary-interval-finite": {
+      "criteria": [
+        "有限区间模块与 StrictFloor 分别计数并绑定各自收据。",
+        "实数端点actual19另已验收，完整解析 E1/M2/谱仍待独立完成。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3ElementaryIntervalDivisibility",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3ElementaryIntervalDivisibility.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T213736743800Z/receipt.json"
+        }
+      ]
+    },
+    "elementary-strict-floor": {
+      "criteria": [
+        "当前 d85 源与 exact strict/stock/all-types 收据一致；旧失败与修复证据保留。",
+        "仅接受本模块36声明；实数端点模块与完整解析 E1/M2/谱/主定理不外推。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3ElementaryE1StrictFloor",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3ElementaryE1StrictFloor.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T221923190661Z/receipt.json"
+        }
+      ]
+    },
+    "elementary-real-endpoint": {
+      "criteria": [
+        "准确处理 real cutoff 与 floor 边界。",
+        "不得提升为完整 E1。"
+      ],
+      "links": [
+        {
+          "label": "Lean 源码 · Part3ElementaryE1RealEndpoint",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3ElementaryE1RealEndpoint.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261021T230227269340Z/receipt.json"
+        }
+      ]
+    },
+    "shifted-tau-finite-interval": {
+      "criteria": [
+        "保留 alternative 身份及 κ≥0 的实际范围。",
+        "原解析 M2 消费者仍须证明。"
+      ]
+    },
+    "mixed-moment-cauchy": {
+      "criteria": [
+        "保留 mixed divisor moment 的 H² 输入边界。",
+        "与已验收 supported-cauchy 分开，不冒称实际 Lean 验收。"
+      ]
+    },
+    "capped-log-source": {
+      "criteria": [
+        "保持 κ cap 与辅助常数 C_K 的范围。",
+        "不得改变手稿最终 C、K 或宣称完整吸收已验收。"
+      ]
+    },
+    "crt-progression-spacing": {
+      "links": [
+        {
+          "label": "Lean 源码 · Part3ElementaryCRTSpacing",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3ElementaryCRTSpacing.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261022T010225273794Z/receipt.json"
+        }
+      ]
+    },
+    "p5-rational-log-source": {
+      "links": [
+        {
+          "label": "Lean 源码 · Certificates.RationalLogCertificate",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Certificates/RationalLogCertificate.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261022T005130675593Z/receipt.json"
+        }
+      ]
+    },
+    "arbitrary-residue-lcm-weighted-mean": {
+      "links": [
+        {
+          "label": "Lean 源码 · Part3ElementaryProgressionLCMPayment",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/ImbalancedChen/Part3ElementaryProgressionLCMPayment.lean"
+        },
+        {
+          "label": "完整局部核验收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/audits/20261022T013300324718Z/receipt.json"
+        },
+        {
+          "label": "严格编译收据",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/compilation/20261022T013202696554Z-ImbalancedChen.Part3ElementaryProgressionLCMPayment/receipt.json"
+        },
+        {
+          "label": "当前190核验清点 / 发布manifest",
+          "url": "https://github.com/UyNewNas/goldbach-formalization/blob/24217fc9b7c385689c992c4ea8c2d1f6026db3db/verification/proof-continuation/2026-10-15/manifest.json",
+          "localCensus": {
+            "path": "source-reviews/20261022T013659602111Z-lcmpayment868a-v4-fresh-baseline189-runtime-fresh-current-terminal-owned-census.json",
+            "sha256": "2dd448ba6b30701e620017ddf0055fd6a71ba9e2adae8b2bc3a444b78bb938bd"
+          }
+        }
+      ]
+    },
+    "e1-progression-closed-v2": {},
+    "original-ju-retained-variance-identity": {},
+    "original-ju-retained-comparison": {},
+    "principal-energy-eu-supplier": {},
+    "principal-energy-polylog": {},
+    "retained-variance-cross-payment": {},
+    "eu-frontier-counting": {},
+    "eu-frontier-normalization-growth": {},
+    "eu-frontier-uniform-prime-tail": {}
+  }
+}

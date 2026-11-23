@@ -8,6 +8,7 @@ const statuses = {
   red: { key: 'red', label: '未完成', color: '#d34e59' },
   revoked: { key: 'revoked', label: '已撤销', color: '#d95563' },
   unknown: { key: 'unknown', label: '未知', color: '#7b879a' },
+  source: { key: 'source', label: '源码可追溯', color: '#5076c9' },
 }
 const edgeKinds = {
   source: '源码 / 接口前置',
@@ -15,6 +16,9 @@ const edgeKinds = {
   validation: '最终验收要求',
   component: '已核验组件',
   alternative: '替代路线',
+  'proof-reference': '源码中的证明引用',
+  'statement-reference': '定义 / 命题接口',
+  'audited-subtree': '报告中的传递依赖',
 }
 
 export function statusInfo(nodeOrStatus) {
@@ -72,7 +76,10 @@ function visualNodes(nodes) {
 
 function countStatuses(nodes) {
   const counts = { green: 0, yellow: 0, red: 0, revoked: 0, unknown: 0 }
-  for (const node of nodes) counts[statusInfo(node).key]++
+  for (const node of nodes) {
+    const key = statusInfo(node).key
+    counts[key] = (counts[key] || 0) + 1
+  }
   return counts
 }
 
@@ -95,7 +102,7 @@ function dependencyData(raw, supplement) {
     assistant: clean(node.assistant),
     preview: clean(node.description),
     revoked: false,
-    status: ['green', 'yellow', 'red'].includes(node.status) ? node.status : 'unknown',
+    status: ['green', 'yellow', 'red', 'source'].includes(node.status) ? node.status : 'unknown',
     predecessors: [...new Set(incoming.get(node.id).map(edge => edge.from))],
     children: [...new Set(outgoing.get(node.id).map(edge => edge.to))],
   })), true)
@@ -126,13 +133,15 @@ function dependencyData(raw, supplement) {
       leaves: facts.filter(node => !node.children.length).length,
       dangling: 0, statusCounts: countStatuses(facts),
     },
-    project: '1+1.75 · 形式化全图',
+    project: clean(raw.project) || '1+1.75 · 形式化全图',
     isDependencyGraph: true,
+    isProofGraph: raw.schema === 'proof-dependencies-v1',
     source: {
       ...metadata,
-      snapshotAt: supplement.snapshotAt || raw.reviewedAt,
-      dashboardUrl: supplement.dashboardUrl,
-      sourceFiles: supplement.sourceFiles,
+      sourceRepository: raw.sourceRepository || (raw.schema === 'goldbach-task-dependencies-v1' ? 'UyNewNas/goldbach-formalization' : null),
+      snapshotAt: supplement.snapshotAt ?? raw.snapshotAt ?? raw.reviewedAt,
+      dashboardUrl: supplement.dashboardUrl ?? raw.dashboardUrl,
+      sourceFiles: supplement.sourceFiles ?? raw.sourceFiles,
     },
   }
 }
@@ -167,5 +176,7 @@ function legacyData(raw) {
 }
 
 export function flowData(raw, supplement = {}) {
-  return raw?.schema === 'goldbach-task-dependencies-v1' ? dependencyData(raw, supplement) : legacyData(raw || {})
+  if (['goldbach-task-dependencies-v1', 'proof-dependencies-v1'].includes(raw?.schema)) return dependencyData(raw, supplement)
+  if (raw?.schema) throw new Error('不支持的图谱格式 schema：' + raw.schema)
+  return legacyData(raw || {})
 }

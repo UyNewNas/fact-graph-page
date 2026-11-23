@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { applyNodeChanges, Background, Controls, Handle, MiniMap, Panel, Position, ReactFlow, ReactFlowProvider, useReactFlow } from '@xyflow/react'
 import { flowData, statusInfo } from './graph-data.js'
 import DependencyInspector from './DependencyInspector.jsx'
+import ProofOverview from './ProofOverview.jsx'
 import '@xyflow/react/dist/style.css'
 import './style.css'
 import './proof-graph.css'
@@ -11,9 +12,11 @@ const safeArray = value => Array.isArray(value) ? value : []
 const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim()
 const clip = (value, length) => clean(value).slice(0, length) + (clean(value).length > length ? '…' : '')
 const DATASETS = {
+  riemann: { label: 'RH / GRH · 黎曼证明图谱', graph: 'riemann-graph.json' },
   goldbach: { label: '1+1.75 · 当前看板全图', graph: 'goldbach-graph.json', details: 'goldbach-details.json' },
   danus: { label: 'Danus · 原事实快照', graph: 'fact-graph.json' },
 }
+const ModuleExplorer = lazy(() => import('./ModuleExplorer.jsx'))
 const initialDataset = () => {
   const value = new URLSearchParams(window.location.search).get('graph')
   return Object.hasOwn(DATASETS, value) ? value : 'goldbach'
@@ -42,9 +45,9 @@ function kind(node) {
 
 function FactNode({ data, selected }) {
   const status = statusInfo(data)
-  return <div className={'fact-node ' + kind(data) + ' status-' + status.key + (selected ? ' selected' : '')}>
+  return <div className={'fact-node ' + kind(data) + ' status-' + status.key + (data.group === 'audit' ? ' audit-entry' : '') + (selected ? ' selected' : '')}>
     <Handle type="target" position={Position.Top} className="port"/>
-    <div className="node-cap"><span className="node-state">{status.label}</span><span className="node-level">L{data.level}</span></div>
+    <div className="node-cap"><span className="node-state">{status.label}</span><span className="node-level">{data.group === 'audit' ? '审查入口 · ' : ''}L{data.level}</span></div>
     <strong>{clip(data.title, 54)}</strong><p>{clip(data.preview || data.title, 90)}</p>
     <footer><code title={data.id}>{clip(data.id, 24)}</code><span>← {data.predecessors.length} · {data.children.length} →</span></footer>
     <Handle type="source" position={Position.Bottom} className="port"/>
@@ -118,6 +121,8 @@ function Canvas() {
   const [reload, setReload] = useState(0)
   const [graph, setGraph] = useState(null)
   const [selected, setSelected] = useState(null)
+  const [moduleTarget, setModuleTarget] = useState(null)
+  const [guideOpen, setGuideOpen] = useState(true)
   const [error, setError] = useState('')
   const [flowReady, setFlowReady] = useState(false)
   const [activeLevel, setActiveLevel] = useState(0)
@@ -142,7 +147,7 @@ function Canvas() {
   useEffect(() => {
     const controller = new AbortController()
     const specification = DATASETS[dataset]
-    setGraph(null); setSelected(null); setError(''); setSearchId(''); setSearchError(''); setFlowReady(false); setActiveLevel(0)
+    setGraph(null); setSelected(null); setModuleTarget(null); setGuideOpen(true); setError(''); setSearchId(''); setSearchError(''); setFlowReady(false); setActiveLevel(0)
     const fetchJson = async filename => {
       const response = await fetch(import.meta.env.BASE_URL + filename, { cache: 'no-store', signal: controller.signal })
       if (!response.ok) throw new Error('无法读取快照 ' + filename + '（HTTP ' + response.status + '）')
@@ -168,6 +173,7 @@ function Canvas() {
     document.documentElement.dataset.theme = dark ? 'dark' : 'light'
     try { localStorage.setItem('fact-graph-theme', dark ? 'dark' : 'light') } catch {}
   }, [dark])
+  useEffect(() => { document.title = (graph?.project || DATASETS[dataset].label) + ' · Fact Graph' }, [graph?.project, dataset])
   const maxLevel = useMemo(() => graph ? Math.max(0, ...graph.facts.map(node => node.level)) : 0, [graph])
   const renderedNodes = useMemo(() => graph ? graph.nodes.map(node => ({ ...node, selected: node.id === selected?.id })) : [], [graph, selected])
   useEffect(() => {
@@ -188,7 +194,7 @@ function Canvas() {
     const exact = graph?.nodes.find(node => node.id.toLocaleLowerCase() === query)
     const matches = exact ? [exact] : graph?.nodes.filter(({ data }) => {
       const evidence = [...safeArray(data.evidence), ...safeArray(graph.factDetails[data.id]?.links)].map(item => [item.path, item.label, item.url].filter(Boolean).join(' ')).join(' ')
-      return [data.id, data.title, data.preview, evidence].join(' ').toLocaleLowerCase().includes(query)
+      return [data.id, data.title, data.preview, data.declarationName, data.module, evidence].join(' ').toLocaleLowerCase().includes(query)
     }) || []
     if (matches.length === 1) { setSearchError(''); jump(matches[0].id) }
     else setSearchError(matches.length ? '匹配 ' + matches.length + ' 个节点，请补充名称或 ID' : '未找到匹配节点')
@@ -214,8 +220,9 @@ function Canvas() {
     return () => cancelAnimationFrame(frame)
   }, [selected, graph, setCenter])
   const sourceCommit = graph?.source?.sourceCommit
-  const sourceUrl = /^[a-f0-9]{40}$/i.test(sourceCommit || '') ? 'https://github.com/UyNewNas/goldbach-formalization/commit/' + sourceCommit : null
-  const statusKeys = graph?.isDependencyGraph ? ['green', 'yellow', 'red'] : ['green', 'revoked']
+  const sourceRepository = graph?.source?.sourceRepository
+  const sourceUrl = /^[a-f0-9]{40}$/i.test(sourceCommit || '') && /^[\w.-]+\/[\w.-]+$/.test(sourceRepository || '') ? 'https://github.com/' + sourceRepository + '/commit/' + sourceCommit : null
+  const statusKeys = graph?.isProofGraph ? ['source', 'unknown'].filter(key => graph.stats.statusCounts[key]) : graph?.isDependencyGraph ? ['green', 'yellow', 'red'] : ['green', 'revoked']
 
   return <div className="shell">
     <header className="bar">
@@ -223,12 +230,15 @@ function Canvas() {
       <select className="dataset-select" value={dataset} onChange={event => setDataset(event.target.value)} aria-label="图谱数据集">{Object.entries(DATASETS).map(([key, value]) => <option key={key} value={key}>{value.label}</option>)}</select>
       <form className="id-search" onSubmit={locateId}><input value={searchId} onChange={event => { setSearchId(event.target.value); setSearchError('') }} placeholder="搜索节点名称、ID 或模块路径" aria-label="搜索节点名称、ID 或模块路径"/><button type="submit" disabled={!graph}>定位</button>{searchError && <span role="status">{searchError}</span>}</form>
       <div className="search">只读依赖画布 · 静态快照</div>
+      {graph?.isProofGraph && <button onClick={() => { setSelected(null); setGuideOpen(true) }}>证明导读</button>}
+      {graph?.isProofGraph && <button onClick={() => setModuleTarget('Main')}>全库模块</button>}
       <button className="theme-toggle" onClick={() => setDark(value => !value)} aria-pressed={dark}>{dark ? '日间模式' : '夜间模式'}</button>
       <button onClick={load}>重新载入</button>
     </header>
     <main className="workspace">
+      {graph?.isProofGraph && !selected && guideOpen && <ProofOverview graph={graph} onJump={jump} onOpenModule={setModuleTarget} onClose={() => setGuideOpen(false)}/>}
       {graph && (graph.isDependencyGraph
-        ? <DependencyInspector key={selected?.id || 'none'} node={selected} graph={graph} onClose={() => setSelected(null)} onJump={jump} writeClipboard={writeClipboard}/>
+        ? <DependencyInspector key={selected?.id || 'none'} node={selected} graph={graph} onClose={() => setSelected(null)} onJump={jump} onOpenModule={setModuleTarget} writeClipboard={writeClipboard}/>
         : <Inspector key={selected?.id || 'none'} node={selected} facts={graph.factDetails} onClose={() => setSelected(null)} onJump={jump}/>)}
       <div className="canvas" ref={canvasRef}>
         {error ? <div className="fatal"><h2>无法读取图谱</h2><p>{error}</p><button onClick={load}>重试</button></div>
@@ -239,18 +249,19 @@ function Canvas() {
             <MiniMap nodeColor={node => statusInfo(node.data).color} nodeStrokeColor={dark ? '#111b2c' : '#ffffff'} nodeStrokeWidth={5} nodeBorderRadius={8} bgColor={dark ? '#111b2c' : '#ffffff'} maskColor={dark ? 'rgba(116,139,255,.18)' : 'rgba(82,108,255,.10)'} maskStrokeColor={dark ? '#8b9cff' : '#526cff'} maskStrokeWidth={2} zoomable pannable/>
             <LevelNavigator level={activeLevel} max={maxLevel} onChange={goLevel}/>
             <Panel position="top-left" className="overview">
-              <b>{graph.facts.length}</b><span>{graph.isDependencyGraph ? '个交付物' : '个事实节点'}</span><b>{graph.edges.length}</b><span>条关系</span>
+              <b>{graph.facts.length}</b><span>{graph.source.nodeUnit || (graph.isDependencyGraph ? '个交付物' : '个事实节点')}</span><b>{graph.edges.length}</b><span>条关系</span>
               <div className="status-legend">{statusKeys.map(key => <span className={'status-' + key} key={key}><i/>{graph.stats.statusCounts[key]} {statusInfo(key).label}</span>)}</div>
             </Panel>
             <Panel position="bottom-left" className="snapshot-note">
               {graph.isDependencyGraph ? <>
                 <span>依赖快照 {sourceUrl ? <a href={sourceUrl} target="_blank" rel="noopener noreferrer">{sourceCommit.slice(0, 8)}</a> : '—'} · 前置 → 使用该前置的目标</span>
-                <p className="snapshot-caveat">节点是关键交付物，不等于 Lean 模块；数量不用于计算总体完成率。替代路线单独标注。</p>
+                <p className="snapshot-caveat">{graph.source.caveat || '节点是关键交付物，不等于 Lean 模块；数量不用于计算总体完成率。替代路线单独标注。'}</p>
               </> : <span>Danus 原始事实快照 · {graph.source.generatedAt?.slice(0, 10) || '历史数据'}</span>}
             </Panel>
           </ReactFlow>}
       </div>
     </main>
+    {moduleTarget !== null && <Suspense fallback={<div className="module-viewer-fallback" role="status">正在打开源码索引…</div>}><ModuleExplorer initialModule={moduleTarget} onClose={() => setModuleTarget(null)}/></Suspense>}
   </div>
 }
 

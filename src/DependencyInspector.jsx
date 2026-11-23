@@ -31,13 +31,14 @@ function Relations({ edges, upstream, byId, onJump }) {
       <div className="relation-kind"><span>{edgeKindLabel(edge.kind)}</span><span className={'status-' + status.key}>{status.label}</span></div>
       <p>{edge.reason}</p>
       {edge.kind === 'alternative' && <p className="snapshot-caveat">这是替代路线，不表示必须与其他路线同时满足。</p>}
-      {edge.directImport === false && <p className="snapshot-caveat">传递项目依赖闭包的前置；不是该目标的直接 import，也不是新增数学假设。</p>}
+      {edge.directImport === false && edge.kind === 'source' && <p className="snapshot-caveat">传递项目依赖闭包的前置；不是该目标的直接 import，也不是新增数学假设。</p>}
+      {edge.dependencySemantics && <p className="relation-semantics">{edge.dependencySemantics}</p>}
       <Evidence entries={edge.evidence}/>
     </div>
   })
 }
 
-export default function DependencyInspector({ node, graph, onClose, onJump, writeClipboard }) {
+export default function DependencyInspector({ node, graph, onClose, onJump, onOpenModule, writeClipboard }) {
   const [copyState, setCopyState] = useState('')
   if (!node) return null
   const detail = graph.factDetails[node.id]
@@ -50,6 +51,10 @@ export default function DependencyInspector({ node, graph, onClose, onJump, writ
   const content = [
     node.title, 'ID: ' + node.id, '状态: ' + status.label,
     detail?.description,
+    detail?.statement ? '命题：\n' + detail.statement : '',
+    detail?.declarationName ? 'Lean 声明：' + detail.declarationName : '',
+    detail?.module ? '模块：' + detail.module : '',
+    detail?.proofExplanation ? '推导说明：\n' + detail.proofExplanation : '',
     detail?.activityDetail || detail?.activity,
     criteria.length ? '完成标准：\n' + criteria.map(value => '• ' + value).join('\n') : '',
     incoming.length ? '前置关系：\n' + incoming.map(edge => edge.from + ' → ' + edge.to + ' [' + edgeKindLabel(edge.kind) + '] ' + edge.reason).join('\n') : '',
@@ -69,13 +74,17 @@ export default function DependencyInspector({ node, graph, onClose, onJump, writ
   }
   return <aside className="inspector">
     <header><div><small>PROOF DEPENDENCY · SNAPSHOT</small><h2>{node.title}</h2></div><button onClick={onClose} aria-label="关闭节点详情">×</button></header>
-    <div className="pills"><b className={'status-' + status.key}>{status.label}</b><b>关键交付物 · L{node.level}</b></div>
+    <div className="pills"><b className={'status-' + status.key}>{status.label}</b><b>{graph.isProofGraph ? '证明节点' : '关键交付物'} · L{node.level}</b></div>
     <div className="copy-actions"><button type="button" onClick={() => copy('content')}>{copyState === 'content' ? '已复制' : '单内容复制'}</button><button type="button" onClick={() => copy('full')}>{copyState === 'full' ? '已复制' : '完整复制'}</button></div>
     {copyState === 'failed' && <p className="error" role="status">复制失败，请重试。</p>}
     <code className="fact-id">{node.id}</code>
     <p>{detail?.description}</p>
+    {detail?.statement && <section><h3>命题与适用范围</h3><pre className="proof-statement">{detail.statement}</pre></section>}
+    {detail?.declarationName && <section><h3>Lean 声明</h3><code className="declaration-name">{detail.declarationName}</code>{detail.module && <button className="module-link" onClick={() => onOpenModule?.(detail.module)}>查看模块依赖 ↗<small>{detail.module}</small></button>}</section>}
+    {detail?.proofExplanation && <section><h3>推导说明</h3><p className="proof-explanation">{detail.proofExplanation}</p></section>}
     {node.status === 'green' && <p className="snapshot-caveat">局部交付物已在所列前提下核验；下游仍需满足各自的完整前提。</p>}
-    <section><h3>当前工作与验收状态</h3><p>{detail?.activityDetail || detail?.activity || '此快照未补充工作说明。'}</p></section>
+    {!graph.isProofGraph && <section><h3>当前工作与验收状态</h3><p>{detail?.activityDetail || detail?.activity || '此快照未补充工作说明。'}</p></section>}
+    {detail?.verification && <section><h3>核验依据与范围</h3><p>{typeof detail.verification === 'string' ? detail.verification : detail.verification.summary}</p></section>}
     {criteria.length > 0 && <section><h3>完成标准</h3><ul>{criteria.map((value, index) => <li key={index}>{value}</li>)}</ul></section>}
     <section><h3>记录的前置关系 · {incoming.length}</h3><Relations edges={incoming} upstream byId={byId} onJump={onJump}/></section>
     <section><h3>完成后支撑 · {outgoing.length}</h3><Relations edges={outgoing} byId={byId} onJump={onJump}/></section>

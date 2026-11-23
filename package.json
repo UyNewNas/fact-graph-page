@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "snapshot": "node scripts/generate-snapshot.cjs",
-    "check:graph": "node scripts/check-goldbach-graph.mjs",
+    "check:graph": "node scripts/check-goldbach-graph.mjs && node scripts/check-proof-adapter.mjs && node scripts/check-module-paths.mjs && node scripts/check-riemann-graph.mjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"

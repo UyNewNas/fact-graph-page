@@ -1,0 +1,1874 @@
+{
+  "schema": "proof-dependencies-v1",
+  "project": "RH / GRH · 黎曼证明图谱",
+  "sourceRepository": "CocoSgt/riemann-hypothesis-lean",
+  "sourceCommit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "reviewedAt": "2026-11-23",
+  "nodeUnit": "个证明节点",
+  "moduleCount": 175187,
+  "introduction": "把黎曼猜想与 Dirichlet GRH 的 Lean 证明拆成可追溯的阅读主线：从结论向前查看证明引用，也可按模块深入全库源码。",
+  "caveat": "34 个主线节点与 8 个审查入口；全库索引记录模块 import。主线未逐项展开所有声明，import 不等于证明项依赖。",
+  "targets": [
+    "rh",
+    "dirichlet-right",
+    "dirichlet-strip",
+    "dirichlet-primitive",
+    "zeta-explicit"
+  ],
+  "chapters": [
+    {
+      "title": "01 · 窗口上界为何排除零点",
+      "description": "长幂区间上的估计，进入无零点判据。",
+      "node": "rpow-window"
+    },
+    {
+      "title": "02 · 算术与自守输入如何闭合",
+      "description": "Galois 局部全局兼容、theta 提升与窗口构造。",
+      "node": "row-source"
+    },
+    {
+      "title": "03 · 从本原族到所有特征",
+      "description": "合成无零点结论并去掉本原性限制。",
+      "node": "top-every"
+    },
+    {
+      "title": "04 · 函数方程把零点压到直线",
+      "description": "由右半平面无零点得到临界线结论。",
+      "node": "crit-line"
+    },
+    {
+      "title": "05 · 对照此前关注的谱分析入口",
+      "description": "kform_unfold、Poincaré 内积与 Perron 接口。",
+      "node": "audit-kform"
+    }
+  ],
+  "verificationSummary": "Rubinstein 报告全库编译、五个根定理的标准三公理审计、Lean 回放和 nanoda 检查通过；Sutherland 还报告了独立重建及更多内核检查。本页保留各报告的日期与范围，本次未重跑 Lean。",
+  "provenanceNote": "镜像 README、Rubinstein 与 Sutherland 的报告声明相同的原始归档哈希和大小；本次没有下载14个原始分卷并比对镜像树，因此报告适用到该镜像快照的字节等同关系仍依赖来源声明。",
+  "snapshot": {
+    "repository": "CocoSgt/riemann-hypothesis-lean",
+    "commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+    "commitDate": "2026-11-20T15:13:33Z",
+    "sourceTreeGitSha": "b41b516b1f7baee4d83ced235ecc71fd43c97695",
+    "leanToolchain": "leanprover/lean4:v4.33.1",
+    "mathlibCommit": "0df444a360eaa60ab8c11dca51a86af692955474",
+    "observedAt": "2026-11-23",
+    "source": "GitHub connector at the fixed commit, followed by read-only inspection of the checked-out identical commit"
+  },
+  "scope": {
+    "headline": "RH 与 Dirichlet L 函数的 GRH",
+    "included": [
+      "Mathlib RiemannHypothesis",
+      "Dirichlet L 函数临界线右侧无零点",
+      "所有/本原 Dirichlet 特征的临界带零点结论"
+    ],
+    "notInRootTheorems": [
+      "一般 Dedekind ζ 函数的 GRH",
+      "一般 Hecke L 函数的 GRH",
+      "一般自守 L 函数的 GRH",
+      "Extended Riemann Hypothesis"
+    ],
+    "note": "源码目录出现 Dedekind、Hecke、自守等名称不能用于扩大五个根定理的结论范围。"
+  },
+  "graphSemantics": {
+    "edgeDirection": "prerequisite -> dependent",
+    "mainlineNodeCount": 34,
+    "auditEntryNodeCount": 8,
+    "proof-reference": "手工读到的定理源码直接引用；未运行 Lean elaborator 或证明项遍历。",
+    "statement-reference": "定义出现在定理类型或显式假设中；不表示该定义的某个构造定理在此被调用。",
+    "audited-subtree": "供后续实现使用的审查分组关系，不应显示为数学蕴含或证明项依赖。",
+    "moduleIndex": "自动抽取 import 只能称模块导入图；不能等同最终根定理声明依赖闭包。",
+    "completeness": "这是一张有源码定位的阅读主线加审查入口图，不是全部形式化证明声明的逐项展开。"
+  },
+  "provenance": {
+    "originalAuthor": "Levent Alpöge, working with Claude",
+    "originalAnnouncement": "https://alpo.ge/remark.pdf",
+    "mirrorCreditEvidence": {
+      "path": "README.md",
+      "startLine": 5,
+      "endLine": 5,
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/README.md#L5",
+      "label": "All credit belongs"
+    },
+    "archiveReportedSha256": "9631b4f020199e580ba86178cb56c6e9b09f690c2369a80dc4334aa93f49c7fc",
+    "archiveReportedBytes": 239275554,
+    "archiveIdentityAssessment": "镜像 README、Rubinstein 与 Sutherland 的报告声明相同的原始归档哈希和大小；本次没有下载14个原始分卷并比对镜像树，因此报告适用到该镜像快照的字节等同关系仍依赖来源声明。",
+    "license": "固定快照根目录未见 LICENSE；README 明言原归档没有声明许可证，镜像没有另加许可证。",
+    "licenseEvidence": {
+      "path": "README.md",
+      "startLine": 172,
+      "endLine": 172,
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/README.md#L172",
+      "label": "without a stated license"
+    },
+    "reuseChoice": "页面使用自行撰写的中文说明、声明名称和固定提交链接；不复制整套 Lean 源码或解释稿。"
+  },
+  "localAudit": {
+    "leanBuildRun": false,
+    "axiomPrintRun": false,
+    "kernelReplayRun": false,
+    "archiveHashRecomputed": false,
+    "sourceFilesScannedForAxiomSorryAdmit": 29,
+    "sourceScanScope": "仅这份策展数据涉及的源码文件，不是全仓库扫描。",
+    "sourceScanHits": [],
+    "metaprogrammingObserved": [
+      {
+        "path": "src/Formalism/HermitianCurvature/HermitianCurvatureProofs/CutCptCopy.lean",
+        "description": "直接读到 copyAll 中调用 addDecl 复制 defnDecl / thmDecl；本次没有执行它。是否经内核与最终闭包使用情况应引用独立报告或另作验证。",
+        "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/HermitianCurvature/HermitianCurvatureProofs/CutCptCopy.lean"
+      }
+    ],
+    "observedFileSha256": {
+      "src/Main.lean": "017645ca448f2fd1f6fd5c4c2cb2c6e96e472725be13f6e180ca6e1574360939",
+      "src/Statements.lean": "79ef7ca776e42abe1f46caee13ea09bd19f1e2d0b1620d8d5d200258f33b47bf"
+    },
+    "statementSpotCheck": "本地 Statements.lean 的 SHA256 为79ef7ca776e42abe1f46caee13ea09bd19f1e2d0b1620d8d5d200258f33b47bf；与 Rubinstein 页面显示的缩略哈希79ef7ca7…33b47bf一致。该点检不能替代整树比对。"
+  },
+  "verificationReports": [
+    {
+      "id": "rubinstein",
+      "name": "Michael Rubinstein / Waterloo",
+      "url": "https://mrubinst.github.io/grh-lean-verification/",
+      "contextUrl": "https://www.math.uwaterloo.ca/~mrubinst/alpoge_claude_grh/",
+      "reportRepository": "mrubinst/grh-lean-verification",
+      "reportCommitObserved": "4713642e39889877d1d779bc48ff40f0ab71fa9e",
+      "reportedAsOf": "2026-11-21T10:10:00Z",
+      "status": "upstream-reported",
+      "scope": "原作者2026-11-20归档的五个根定理；编译与Lean回放覆盖175,187模块；nanoda覆盖五定理导出依赖。",
+      "archiveSha256": "9631b4f020199e580ba86178cb56c6e9b09f690c2369a80dc4334aa93f49c7fc",
+      "versionApplicability": "归档哈希与镜像README所述相同；本次未独立证实镜像整树与归档字节相同。",
+      "reportedChecks": [
+        {
+          "check": "full compile",
+          "result": "175,187/175,187; 0 errors"
+        },
+        {
+          "check": "five root theorem axiom audit",
+          "result": "propext, Classical.choice, Quot.sound only"
+        },
+        {
+          "check": "Lean module kernel replay",
+          "result": "175,187/175,187; 0 rejections"
+        },
+        {
+          "check": "nanoda",
+          "result": "1,484,729 declarations; no typechecker errors"
+        }
+      ],
+      "exportSha256": "4301ce4828d397c728e87f3e6a1251aa42abe5e12809bb9e0b73cc3d33072e7e",
+      "exportBytes": 61571290481,
+      "supportingUrls": [
+        "https://mrubinst.github.io/grh-lean-verification/audit.txt",
+        "https://mrubinst.github.io/grh-lean-verification/axioms.out",
+        "https://mrubinst.github.io/grh-lean-verification/replay_summary.txt",
+        "https://mrubinst.github.io/grh-lean-verification/scripts/depcheck1.out",
+        "https://mrubinst.github.io/grh-lean-verification/scripts/depcheck2.out",
+        "https://mrubinst.github.io/grh-lean-verification/scripts/depcheck3.out",
+        "https://mrubinst.github.io/grh-lean-verification/scripts/depcheck4.out",
+        "https://mrubinst.github.io/grh-lean-verification/scripts/depcheck5.out"
+      ],
+      "closureReport": "报告 riemannHypothesis 的递归声明闭包为1,478,198；depcheck4.out 中 sorryAx used=false。部分并行或早期陈述 used=false，尽管其模块被加载。",
+      "limitations": "这些是公开检查报告的结果；本次没有重跑。报告的导出哈希与 MIT 导出不同，应分别保留，不能将两个导出当成同一文件。",
+      "localRun": false,
+      "label": "Michael Rubinstein / Waterloo",
+      "summary": "四项检查报告通过：编译、公理、Lean 回放、nanoda（2026-11-21）。"
+    },
+    {
+      "id": "sutherland",
+      "name": "Andrew Sutherland / MIT",
+      "url": "https://math.mit.edu/~drew/grh/",
+      "reportedAsOf": "2026-11-22T16:20:00Z",
+      "status": "upstream-reported",
+      "scope": "原作者2026-11-20归档的五个根定理；另有独立的算术后果检查，此处不混入根证明状态。",
+      "archiveSha256": "9631b4f020199e580ba86178cb56c6e9b09f690c2369a80dc4334aa93f49c7fc",
+      "versionApplicability": "归档哈希与镜像README所述相同；报告提到的 Deicyde 镜像现迁移到 leanprover-community，不能将报告无条件用于迁移后当前 main。",
+      "reportedChecks": [
+        {
+          "check": "full compile",
+          "result": "175,187 modules; zero errors"
+        },
+        {
+          "check": "five root theorem axiom audit",
+          "result": "propext, Classical.choice, Quot.sound only"
+        },
+        {
+          "check": "Lean module replay",
+          "result": "175,187/175,187; 0 rejections"
+        },
+        {
+          "check": "sandboxed lake build Main and export",
+          "result": "build exit 0; exported proof byte-identical to their published export"
+        },
+        {
+          "check": "nanoda / con-leche master",
+          "result": "full exported proof accepted"
+        },
+        {
+          "check": "con-leche --compare / con-ron --compare",
+          "result": "all five theorems justified against challenge"
+        },
+        {
+          "check": "lean4lean built with Lean v4.33.1",
+          "result": "175,187/175,187; five step-limit cases passed after limits raised"
+        }
+      ],
+      "stillRunningInObservedReport": [
+        "Lean default/paranoid kernel on exported proof",
+        "end-to-end lake comparator kernel stage"
+      ],
+      "exportSha256": "5ea74b912147c5c93cc2b6d70cc727cf908df2f62ac6a20480a3fa02f6be244e",
+      "exportBytes": 61570595788,
+      "supportingUrls": [
+        "https://math.mit.edu/~drew/grh/audit.log",
+        "https://math.mit.edu/~drew/grh/sandbox-timeline.txt",
+        "https://math.mit.edu/~drew/grh/sandbox-build.sh",
+        "https://math.mit.edu/~drew/grh/nanoda.log"
+      ],
+      "caveats": [
+        "环境日志列出15个Lean core axioms，包括sorryAx；五个根定理的依赖列表只有标准三公理，不能混淆环境存在与实际依赖。",
+        "sandbox的175,187个olean中有一个非确定性差异；报告解释为自动生成方程引理的绑定变量名竞争，并报告最终导出不受影响。",
+        "部分旧版checker二进制declined/不适用不等同证明被拒绝。"
+      ],
+      "limitations": "本次只读取公开报告和 audit.log；没有复现检查。",
+      "localRun": false,
+      "label": "Andrew Sutherland / MIT",
+      "summary": "编译、重建及多个内核报告通过；报告中的导出 Lean 内核与 Comparator 全流程仍在运行（2026-11-22）。"
+    }
+  ],
+  "exposition": {
+    "url": "https://www.math.uwaterloo.ca/~mrubinst/alpoge_claude_grh/zeta-paper.pdf",
+    "title": "The Alpöge–Claude proof of the Riemann hypothesis explained for the Riemann zeta function",
+    "bylineObserved": "Claude Fable 5.2, Codex Astra 6.2, and Gemini Carbon; at the behest of Michael O. Rubinstein",
+    "workingDraftDate": "2026-11-21",
+    "pagesObserved": 164,
+    "role": "辅助解释稿；不是这份源码图的替代证明。",
+    "mainInequalityM": "稿件明确(M)没有在文中完整证明；从Lean development引用。",
+    "summary": "稿件将长区间上的单侧平滑素数幂和上界归约到(M)及两个特征估计；其中若干算术、迹公式、Galois上同调与映射组装输入仍引用Lean。",
+    "license": "未在本次审查中确认解释稿的重用许可；此处仅作自行概述并链接。"
+  },
+  "statementDefinitions": [
+    {
+      "name": "RiemannHypothesis",
+      "repository": "leanprover-community/mathlib4",
+      "commit": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "path": "Mathlib/NumberTheory/LSeries/RiemannZeta.lean",
+      "startLine": 185,
+      "endLine": 186,
+      "url": "https://github.com/leanprover-community/mathlib4/blob/0df444a360eaa60ab8c11dca51a86af692955474/Mathlib/NumberTheory/LSeries/RiemannZeta.lean#L185-L186",
+      "sourceRead": true
+    },
+    {
+      "name": "RiemannZetaZerosOnLine",
+      "path": "src/Statements.lean",
+      "startLine": 3,
+      "endLine": 4,
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Statements.lean#L3-L4"
+    },
+    {
+      "name": "DirichletLNonvanishingRightOfHalf",
+      "path": "src/Statements.lean",
+      "startLine": 6,
+      "endLine": 8,
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Statements.lean#L6-L8"
+    },
+    {
+      "name": "DirichletLZerosOnLine",
+      "path": "src/Statements.lean",
+      "startLine": 10,
+      "endLine": 12,
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Statements.lean#L10-L12"
+    },
+    {
+      "name": "PrimitiveDirichletLZerosOnLine",
+      "path": "src/Statements.lean",
+      "startLine": 14,
+      "endLine": 16,
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Statements.lean#L14-L16"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "rh",
+      "label": "RH：Mathlib 原始命题",
+      "module": "Main",
+      "declarationName": "riemannHypothesis",
+      "statement": "ζ(s)=0，且 s 不是负偶数平凡零点并且 s≠1，则 Re(s)=1/2。",
+      "description": "ζ(s)=0，且 s 不是负偶数平凡零点并且 s≠1，则 Re(s)=1/2。",
+      "proofExplanation": "源码将已构造的 rhOfAll 直接赋给 Mathlib 的 RiemannHypothesis；此根定理没有待提供的数学假设。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Main.lean",
+          "startLine": 4,
+          "endLine": 4,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Main.lean#L4-L4",
+          "label": "riemannHypothesis",
+          "sha256": "017645ca448f2fd1f6fd5c4c2cb2c6e96e472725be13f6e180ca6e1574360939"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "zeta-explicit",
+      "label": "RH：展开写出的 ζ 零点命题",
+      "module": "Main",
+      "declarationName": "riemannZeta_eq_zero_re",
+      "statement": "与 RH 相同的零点结论，使用 src/Statements.lean 中的 RiemannZetaZerosOnLine。",
+      "description": "与 RH 相同的零点结论，使用 src/Statements.lean 中的 RiemannZetaZerosOnLine。",
+      "proofExplanation": "源码同样使用 rhOfAll；这里的转换由定义相等实现，并不是另一套独立证明。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Main.lean",
+          "startLine": 6,
+          "endLine": 6,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Main.lean#L6-L6",
+          "label": "riemannZeta_eq_zero_re",
+          "sha256": "017645ca448f2fd1f6fd5c4c2cb2c6e96e472725be13f6e180ca6e1574360939"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "dirichlet-right",
+      "label": "所有 Dirichlet L 函数右侧无零点",
+      "module": "Main",
+      "declarationName": "LFunction_ne_zero_of_half_lt_re",
+      "statement": "任意非零模数 N、任意 Dirichlet 特征 χ，若 Re(s)>1/2 且（χ≠1 或 s≠1），则 L(χ,s)≠0。",
+      "description": "任意非零模数 N、任意 Dirichlet 特征 χ，若 Re(s)>1/2 且（χ≠1 或 s≠1），则 L(χ,s)≠0。",
+      "proofExplanation": "直接使用 allChi。范围包括本原与非本原特征；排除主特征在 s=1 的情形。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Main.lean",
+          "startLine": 8,
+          "endLine": 8,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Main.lean#L8-L8",
+          "label": "LFunction_ne_zero_of_half_lt_re",
+          "sha256": "017645ca448f2fd1f6fd5c4c2cb2c6e96e472725be13f6e180ca6e1574360939"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "dirichlet-strip",
+      "label": "所有 Dirichlet L 函数临界带结论",
+      "module": "Main",
+      "declarationName": "LFunction_eq_zero_re",
+      "statement": "对任意 Dirichlet 特征，临界带 0<Re(s)<1 内的 L 函数零点满足 Re(s)=1/2。",
+      "description": "对任意 Dirichlet 特征，临界带 0<Re(s)<1 内的 L 函数零点满足 Re(s)=1/2。",
+      "proofExplanation": "使用 claimAll 的第二个分量，即 Claim.Strip。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Main.lean",
+          "startLine": 10,
+          "endLine": 10,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Main.lean#L10-L10",
+          "label": "LFunction_eq_zero_re",
+          "sha256": "017645ca448f2fd1f6fd5c4c2cb2c6e96e472725be13f6e180ca6e1574360939"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "dirichlet-primitive",
+      "label": "本原 Dirichlet 特征的 GRH",
+      "module": "Main",
+      "declarationName": "LFunction_eq_zero_re_of_isPrimitive",
+      "statement": "对本原 Dirichlet 特征，临界带内的零点位于 Re(s)=1/2。",
+      "description": "对本原 Dirichlet 特征，临界带内的零点位于 Re(s)=1/2。",
+      "proofExplanation": "使用 critAll；这一根定理中的 χ.IsPrimitive 是命题量化的对象条件，不是把 GRH 当作假设。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Main.lean",
+          "startLine": 12,
+          "endLine": 12,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Main.lean#L12-L12",
+          "label": "LFunction_eq_zero_re_of_isPrimitive",
+          "sha256": "017645ca448f2fd1f6fd5c4c2cb2c6e96e472725be13f6e180ca6e1574360939"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "all-chi",
+      "label": "汇总：EveryCharacter",
+      "module": "Supplements.Kernels.MainTheorems",
+      "declarationName": "allChi",
+      "statement": "构造 UpperTheory.EveryCharacter：对非零模数 N 及任意特征 χ，Re(s)>1/2 且（χ≠1 或 s≠1）时，L(χ,s)≠0。",
+      "description": "构造 UpperTheory.EveryCharacter：对非零模数 N 及任意特征 χ，Re(s)>1/2 且（χ≠1 或 s≠1）时，L(χ,s)≠0。",
+      "proofExplanation": "直接引用 UpperTheory.FinalTheorems.everyCharacter。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Supplements/Kernels/MainTheorems.lean",
+          "startLine": 7,
+          "endLine": 7,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Supplements/Kernels/MainTheorems.lean#L7-L7",
+          "label": "allChi",
+          "sha256": "1e734200b9b6a6d2a968743bd0c433d614bd6606cf538ac6d4f0ff70044dde53"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "rh-of-all",
+      "label": "从所有特征得到 RH",
+      "module": "Supplements.Kernels.MainTheorems",
+      "declarationName": "rhOfAll",
+      "statement": "由所有 Dirichlet 特征的右侧无零点结论得到 RiemannHypothesis。",
+      "description": "由所有 Dirichlet 特征的右侧无零点结论得到 RiemannHypothesis。",
+      "proofExplanation": "将 allChi 传给 Formalism.VW.rh_of_every。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Supplements/Kernels/MainTheorems.lean",
+          "startLine": 9,
+          "endLine": 9,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Supplements/Kernels/MainTheorems.lean#L9-L9",
+          "label": "rhOfAll",
+          "sha256": "1e734200b9b6a6d2a968743bd0c433d614bd6606cf538ac6d4f0ff70044dde53"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "crit-all",
+      "label": "汇总：本原特征的临界线",
+      "module": "Supplements.Kernels.MainTheorems",
+      "declarationName": "critAll",
+      "statement": "给出每个本原特征在临界带内的零点实部为 1/2。",
+      "description": "给出每个本原特征在临界带内的零点实部为 1/2。",
+      "proofExplanation": "将 allChi 和模数、特征、本原性、零点条件传给 Formalism.VW.critLine。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Supplements/Kernels/MainTheorems.lean",
+          "startLine": 11,
+          "endLine": 13,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Supplements/Kernels/MainTheorems.lean#L11-L13",
+          "label": "critAll",
+          "sha256": "1e734200b9b6a6d2a968743bd0c433d614bd6606cf538ac6d4f0ff70044dde53"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "claim-all",
+      "label": "汇总：半平面、临界带与 ζ",
+      "module": "Supplements.Kernels.MainTheorems",
+      "declarationName": "claimAll",
+      "statement": "构造 Claim.HalfPlane ∧ Claim.Strip ∧ Claim.Zeta。",
+      "description": "构造 Claim.HalfPlane ∧ Claim.Strip ∧ Claim.Zeta。",
+      "proofExplanation": "三个分量依次为 allChi、Claim.strip allChi 与 Claim.zeta allChi；本图单独展开了临界带分量。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Supplements/Kernels/MainTheorems.lean",
+          "startLine": 15,
+          "endLine": 16,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Supplements/Kernels/MainTheorems.lean#L15-L16",
+          "label": "claimAll",
+          "sha256": "1e734200b9b6a6d2a968743bd0c433d614bd6606cf538ac6d4f0ff70044dde53"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "rh-every",
+      "label": "取模 1 特征归约到 ζ",
+      "module": "Formalism.GammaFactorNonvanishing.CritLine",
+      "declarationName": "Formalism.VW.rh_of_every",
+      "statement": "EveryCharacter 蕴含 RH。",
+      "description": "EveryCharacter 蕴含 RH。",
+      "proofExplanation": "取模数为 1 的主特征，使用 Mathlib 的 LFunction_modOne_eq 识别为 ζ，再调用 rh_of_right。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Formalism/GammaFactorNonvanishing/CritLine.lean",
+          "startLine": 29,
+          "endLine": 32,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/GammaFactorNonvanishing/CritLine.lean#L29-L32",
+          "label": "Formalism.VW.rh_of_every",
+          "sha256": "5b1552ac13442150f6900f37b9b44eff1491fad1bebe2ec07a959eecb9bcfe02"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "crit-line",
+      "label": "函数方程反射本原特征零点",
+      "module": "Formalism.GammaFactorNonvanishing.CritLine",
+      "declarationName": "Formalism.VW.critLine",
+      "statement": "在 EveryCharacter 下，本原特征的临界带零点实部为 1/2。",
+      "description": "在 EveryCharacter 下，本原特征的临界带零点实部为 1/2。",
+      "proofExplanation": "右侧零点直接与无零点假设矛盾；左侧零点经 completed L 函数方程反射到逆特征在 1-s 的右侧零点，并使用 gamma 因子非零。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Formalism/GammaFactorNonvanishing/CritLine.lean",
+          "startLine": 11,
+          "endLine": 27,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/GammaFactorNonvanishing/CritLine.lean#L11-L27",
+          "label": "Formalism.VW.critLine",
+          "sha256": "5b1552ac13442150f6900f37b9b44eff1491fad1bebe2ec07a959eecb9bcfe02"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "rh-right",
+      "label": "ζ 函数方程完成 RH",
+      "module": "Formalism.GammaFactorNonvanishing.RhOfRight",
+      "declarationName": "Formalism.VW.rh_of_right",
+      "statement": "若 ζ 在 Re(s)>1/2 且 s≠1 时无零点，则 RH 成立。",
+      "description": "若 ζ 在 Re(s)>1/2 且 s≠1 时无零点，则 RH 成立。",
+      "proofExplanation": "按 Re(s) 与 1/2 的大小分类。左侧使用 ζ 的函数方程；排除 gamma、余弦因子产生的平凡零点情形。此文件只导入 Mathlib。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Formalism/GammaFactorNonvanishing/RhOfRight.lean",
+          "startLine": 5,
+          "endLine": 62,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/GammaFactorNonvanishing/RhOfRight.lean#L5-L62",
+          "label": "Formalism.VW.rh_of_right",
+          "sha256": "7e2c0b519ee420192cad8fb281c2d2bfebae2ba553342fd579c81c2aa0bd3dc5"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "claim-strip",
+      "label": "将临界带结论扩到非本原特征",
+      "module": "Development.AutomorphicArithmetic.CharacterBoxes.ClaimStrip",
+      "declarationName": "Claim.strip",
+      "statement": "Claim.HalfPlane 蕴含 Claim.Strip。",
+      "description": "Claim.HalfPlane 蕴含 Claim.Strip。",
+      "proofExplanation": "左侧零点先归约到 primitiveCharacter，再由 prim_reflect 反射到逆特征右侧；右侧直接用 HalfPlane。辅助引理 factor_ne_zero、prim_zero、gamma_ne_zero 与 prim_reflect 都在本文件中。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/ClaimStrip.lean",
+          "startLine": 59,
+          "endLine": 73,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/ClaimStrip.lean#L59-L73",
+          "label": "Claim.strip",
+          "sha256": "74498552f19df4bd5b3c296ed247d25d40cabd1057647dd4db1ee7ba1c57ea03"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "final-every",
+      "label": "最终 EveryCharacter 定理",
+      "module": "Development.AutomorphicArithmetic.CharacterBoxes.MainConclusion",
+      "declarationName": "UpperTheory.FinalTheorems.everyCharacter",
+      "statement": "无额外参数地构造 EveryCharacter。",
+      "description": "无额外参数地构造 EveryCharacter。",
+      "proofExplanation": "用 galoisLocalGlobalStrong_recParameter 提供 everyCharacter_of_row 所需的 Row0b 输入。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean",
+          "startLine": 10,
+          "endLine": 11,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean#L10-L11",
+          "label": "UpperTheory.FinalTheorems.everyCharacter",
+          "sha256": "a5f71e107087e37b2c598709795b0f56c0a6741cf1e8ab99ee1f97e2fce0fe34"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "final-row",
+      "label": "由 Galois 行条件组装主结论",
+      "module": "Development.AutomorphicArithmetic.CharacterBoxes.MainConclusion",
+      "declarationName": "UpperTheory.FinalTheorems.everyCharacter_of_row",
+      "statement": "Row0b 的局部全局兼容条件蕴含 EveryCharacter。",
+      "description": "Row0b 的局部全局兼容条件蕴含 EveryCharacter。",
+      "proofExplanation": "由给定行条件 h 和 recTExists 构造 OpenLiteratureStatements，再提供 vwin_of_row h，调用 every_character_of_literature_of_vWin。名称含 literature 并不使其成为 axiom；这里的输入在最终调用时由源码中的定理提供。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean",
+          "startLine": 7,
+          "endLine": 8,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean#L7-L8",
+          "label": "UpperTheory.FinalTheorems.everyCharacter_of_row",
+          "sha256": "a5f71e107087e37b2c598709795b0f56c0a6741cf1e8ab99ee1f97e2fce0fe34"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "literature-vwin",
+      "label": "已构造输入与窗口合成无零点结论",
+      "module": "Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.EveryCharacterOfLiteratureOfVWin",
+      "declarationName": "UpperTheory.LiteratureTheorems.every_character_of_literature_of_vWin",
+      "statement": "OpenLiteratureStatements 与 VWin 蕴含 EveryCharacter。",
+      "description": "OpenLiteratureStatements 与 VWin 蕴含 EveryCharacter。",
+      "proofExplanation": "显式组合第三处酉群输入、theta 局部输入、theta 积分一致性与局部匹配、余体积估计、局部 Langlands 参数存在性和窗口条件。完整逐项输入列表位于该文件，不在此图中穷举。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/EveryCharacterOfLiteratureOfVWin.lean",
+          "startLine": 810,
+          "endLine": 813,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/EveryCharacterOfLiteratureOfVWin.lean#L810-L813",
+          "label": "UpperTheory.LiteratureTheorems.every_character_of_literature_of_vWin",
+          "sha256": "246b74eeb03dae250c45b46c155b3590cb53c2bac86f5e35f4b74338db487068"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "theta-matching",
+      "label": "theta 积分与局部匹配的汇合点",
+      "module": "Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.SiegelEisensteinSecondTermHypotheses",
+      "declarationName": "UpperTheory.Lit.every_character_of_theta_integrals_local_matching",
+      "statement": "给定第三处酉群、theta 局部输入、积分一致性、局部匹配、余体积、RecTExists 与 VWin，得到 EveryCharacter。",
+      "description": "给定第三处酉群、theta 局部输入、积分一致性、局部匹配、余体积、RecTExists 与 VWin，得到 EveryCharacter。",
+      "proofExplanation": "先由 nonempty_hyps_definite_side_of_closed_bound 构造确定侧假设包，再交给 every_character_of_green_v_win。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SiegelEisensteinSecondTermHypotheses.lean",
+          "startLine": 69,
+          "endLine": 73,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SiegelEisensteinSecondTermHypotheses.lean#L69-L73",
+          "label": "UpperTheory.Lit.every_character_of_theta_integrals_local_matching",
+          "sha256": "e761e876e3236895eec1b67b5a2118846ddfcc6883eed367ac6cc78523da15f2"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "definite-hyps",
+      "label": "构造确定侧假设包",
+      "module": "Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.SiegelEisensteinSecondTermHypotheses",
+      "declarationName": "UpperTheory.Lit.nonempty_hyps_definite_side_of_closed_bound",
+      "statement": "在 UnitaryGroupThirdPlaceHypotheses、ThetaLocalInputs、ThetaIntegralsAgree、LocalMatching、CovolumeBoundOfX、hL:RecTExists，以及每个 cDep 对应的 LinkedAt(...BoundAtTwoThreeFamilyFonAlt...) 闭界条件下，构造 Nonempty (GlobalTheory.Fc.HypsAlt S0.NL GlobalTheory.Fc.DefiniteSideCondition)。",
+      "description": "在 UnitaryGroupThirdPlaceHypotheses、ThetaLocalInputs、ThetaIntegralsAgree、LocalMatching、CovolumeBoundOfX、hL:RecTExists，以及每个 cDep 对应的 LinkedAt(...BoundAtTwoThreeFamilyFonAlt...) 闭界条件下，构造 Nonempty (GlobalTheory.Fc.HypsAlt S0.NL GlobalTheory.Fc.DefiniteSideCondition)。",
+      "proofExplanation": "证明体显式构造分离泛函、有理性、Fourier 系数匹配、求值网格、开放参数与关联束的 L3 性质，最后调用 hypotheses_nonempty_of_unramified_exponents_alt。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SiegelEisensteinSecondTermHypotheses.lean",
+          "startLine": 44,
+          "endLine": 68,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SiegelEisensteinSecondTermHypotheses.lean#L44-L68",
+          "label": "UpperTheory.Lit.nonempty_hyps_definite_side_of_closed_bound",
+          "sha256": "e761e876e3236895eec1b67b5a2118846ddfcc6883eed367ac6cc78523da15f2"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "top-every",
+      "label": "从本原族推广到所有特征",
+      "module": "Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.TopPlug",
+      "declarationName": "UpperTheory.Top.every_character_of_green_v_win",
+      "statement": "Green、VWin 与非空确定侧假设包蕴含 EveryCharacter。",
+      "description": "Green、VWin 与非空确定侧假设包蕴含 EveryCharacter。",
+      "proofExplanation": "先调用 zero_free_all_of_green_v_win，随后用 imprimitive 处理非本原特征。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopPlug.lean",
+          "startLine": 16,
+          "endLine": 18,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopPlug.lean#L16-L18",
+          "label": "UpperTheory.Top.every_character_of_green_v_win",
+          "sha256": "7d1d7972a4abe1284c5e4da9dd65a6eb605b06efb5e993b298fe5aaed88e9adf"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "imprimitive",
+      "label": "移除本原性限制",
+      "module": "Development.AutomorphicArithmetic.CharacterBoxes.Imprimitive",
+      "declarationName": "UpperTheory.Top.imprimitive",
+      "statement": "由 ZeroFreeAll 推出：对任意非零模数 N 和任意特征 χ，若 Re(s)>1/2 且（χ≠1 或 s≠1），则 L(χ,s)≠0。",
+      "description": "由 ZeroFreeAll 推出：对任意非零模数 N 和任意特征 χ，若 Re(s)>1/2 且（χ≠1 或 s≠1），则 L(χ,s)≠0。",
+      "proofExplanation": "将 χ 的 L 函数写成本原特征 L 函数乘有限 Euler 因子；使用特征值范数≤1 与正实部保证每个新增因子非零。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/Imprimitive.lean",
+          "startLine": 5,
+          "endLine": 35,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/Imprimitive.lean#L5-L35",
+          "label": "UpperTheory.Top.imprimitive",
+          "sha256": "8de85415d0d139f23b2b50ba56c18ab3b3e29740f41e2d86eaf99b95765f512e"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "top-zero",
+      "label": "把几何输入转为长区间无零点条件",
+      "module": "Development.AutomorphicArithmetic.ThetaCorrespondence.ThetaPairLifts.ThirdPlaceSeries.TopPlug",
+      "declarationName": "UpperTheory.Top.zero_free_all_of_green_v_win",
+      "statement": "Green、VWin 与非空确定侧假设包蕴含 ZeroFreeAll。",
+      "description": "Green、VWin 与非空确定侧假设包蕴含 ZeroFreeAll。",
+      "proofExplanation": "设窗口幂指数 la=3/2，构造 forall_goal_of_shape_of_hyps，并用 supplyChi 提供每个特征的窗口，调用 zeroFreeAll_of_topG。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopPlug.lean",
+          "startLine": 12,
+          "endLine": 15,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopPlug.lean#L12-L15",
+          "label": "UpperTheory.Top.zero_free_all_of_green_v_win",
+          "sha256": "7d1d7972a4abe1284c5e4da9dd65a6eb605b06efb5e993b298fe5aaed88e9adf"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "zero-free-top",
+      "label": "长区间 Chebyshev 界的总归约",
+      "module": "Development.AutomorphicArithmetic.CharacterBoxes.ZeroFreeAllOfTopG",
+      "declarationName": "UpperTheory.Top.zeroFreeAll_of_topG",
+      "statement": "给定实数 λ>1，若 TopG 与每个 ψ:PChar 的 HostExW λ (GChi ψ).req 成立，则得到 ZeroFreeAll。",
+      "description": "给定实数 λ>1，若 TopG 与每个 ψ:PChar 的 HostExW λ (GChi ψ).req 成立，则得到 ZeroFreeAll。",
+      "proofExplanation": "传入族尺度上的 level_gm_le_on_family_scales 和 formB，再从 TopG 构造满足窗口条件的族，调用 zeroFreeOn_of_tiedWin_cyc。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/ZeroFreeAllOfTopG.lean",
+          "startLine": 26,
+          "endLine": 34,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/ZeroFreeAllOfTopG.lean#L26-L34",
+          "label": "UpperTheory.Top.zeroFreeAll_of_topG",
+          "sha256": "349d9eafe63952c2fa4ccb2055bef7de0144d442c552196183fe48f01958f033"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "form-b",
+      "label": "将一般族的幂界解释成无零点",
+      "module": "Development.AutomorphicArithmetic.PrimitiveCosets.Imports",
+      "declarationName": "UpperTheory.Comparison₂.formB",
+      "statement": "每个 Level 均满足 FormB：足够长窗口上的 Gm 幂界给出相应半平面无零点结论。",
+      "description": "每个 Level 均满足 FormB：足够长窗口上的 Gm 幂界给出相应半平面无零点结论。",
+      "proofExplanation": "通过 level_family 找到对应 CharFamily，把 δ 设为 la−1、C 设为 1，再调用 Deduction.zeroFree_of_rpow_window。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/PrimitiveCosets/Imports.lean",
+          "startLine": 8,
+          "endLine": 19,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/PrimitiveCosets/Imports.lean#L8-L19",
+          "label": "UpperTheory.Comparison₂.formB",
+          "sha256": "9d38c47879d3c02199f747433f009ba4cf6eb44d7480f031e5763a2ee271950e"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "tied-cyc",
+      "label": "逐个循环层的窗口判据",
+      "module": "Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.TopWin",
+      "declarationName": "Formalism.HC.zeroFreeOn_of_tiedWin_cyc",
+      "statement": "给定 λ>1，对每个满足 Q 的特征 ψ，若循环层 Level.cyc ψ 同时满足 ChebyshevInequalityOnWindows、FormB 和参数 λ 的 ChebyshevInequalityAtWindowScale，则得到 ZeroFreeOn Q。",
+      "description": "给定 λ>1，对每个满足 Q 的特征 ψ，若循环层 Level.cyc ψ 同时满足 ChebyshevInequalityOnWindows、FormB 和参数 λ 的 ChebyshevInequalityAtWindowScale，则得到 ZeroFreeOn Q。",
+      "proofExplanation": "以 Level.cyc ψ 作为每个特征对应的层，直接调用 zeroFreeOn_of_tiedWin。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean",
+          "startLine": 90,
+          "endLine": 93,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean#L90-L93",
+          "label": "Formalism.HC.zeroFreeOn_of_tiedWin_cyc",
+          "sha256": "afbbf8ec0a8aca08b7935c6118c76eef06b2eee896805e7de277b9d4e09fc52b"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "tied-levels",
+      "label": "由各层窗口结论得到特征无零点",
+      "module": "Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.TopWin",
+      "declarationName": "Formalism.HC.zeroFreeOn_of_tiedWin",
+      "statement": "若每个满足 Q 的特征 ψ 都属于某层 Λ.KEPT，且存在 λ>1，使该层同时满足 ChebyshevInequalityOnWindows、Λ.FormB 和参数 λ 的 ChebyshevInequalityAtWindowScale，则得到 ZeroFreeOn Q。",
+      "description": "若每个满足 Q 的特征 ψ 都属于某层 Λ.KEPT，且存在 λ>1，使该层同时满足 ChebyshevInequalityOnWindows、Λ.FormB 和参数 λ 的 ChebyshevInequalityAtWindowScale，则得到 ZeroFreeOn Q。",
+      "proofExplanation": "将 level_of_tiedWin 的层内结论送入 zeroFreeOn_of_levels。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean",
+          "startLine": 83,
+          "endLine": 88,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean#L83-L88",
+          "label": "Formalism.HC.zeroFreeOn_of_tiedWin",
+          "sha256": "afbbf8ec0a8aca08b7935c6118c76eef06b2eee896805e7de277b9d4e09fc52b"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "level-tied",
+      "label": "把指数压到任意零点实部以下",
+      "module": "Formalism.SharpRestriction.RamificationFrobenius.TotientGaloisClasses.TopWin",
+      "declarationName": "Formalism.HC.level_of_tiedWin",
+      "statement": "ChebyshevInequalityOnWindows、FormBAt 与窗口尺度条件蕴含层的 ZeroFreeLevel。",
+      "description": "ChebyshevInequalityOnWindows、FormBAt 与窗口尺度条件蕴含层的 ZeroFreeLevel。",
+      "proofExplanation": "针对 Re(s)>1/2 选择足够小的 ε，使误差指数低于 Re(s)，并将窗口幂界交给 FormBAt。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean",
+          "startLine": 68,
+          "endLine": 81,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean#L68-L81",
+          "label": "Formalism.HC.level_of_tiedWin",
+          "sha256": "afbbf8ec0a8aca08b7935c6118c76eef06b2eee896805e7de277b9d4e09fc52b"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "rpow-window",
+      "label": "长幂区间上界排除右侧零点",
+      "module": "Development.AutomorphicArithmetic.DedekindLFunctions.LandauTheorems.ZeroFreeOfRpowWindow",
+      "declarationName": "Deduction.zeroFree_of_rpow_window",
+      "statement": "0<θ<1、δ>0；若存在任意大的 Y，使每个 y∈[Y,Y^(1+δ)] 都满足 Gm(F,y)≤C·y^θ，则 ZeroFree F θ。",
+      "description": "0<θ<1、δ>0；若存在任意大的 Y，使每个 y∈[Y,Y^(1+δ)] 都满足 Gm(F,y)≤C·y^θ，则 ZeroFree F θ。",
+      "proofExplanation": "由 windowHyp_of_rpow 构造所需窗口假设，然后调用 lemmaL。这是图中对应解释稿“长区间单侧上界”步骤的实际 Lean 声明；本文件名含 Dedekind 不扩张根定理已核查的结论范围。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ZeroFreeOfRpowWindow.lean",
+          "startLine": 11,
+          "endLine": 14,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ZeroFreeOfRpowWindow.lean#L11-L14",
+          "label": "Deduction.zeroFree_of_rpow_window",
+          "sha256": "3252473ba2654b05e9d2ea0781ea91b4c7eadcca0def18b0f21d20212c2f0316"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "vwin-row",
+      "label": "由行条件构造自守窗口",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.ThresholdArguments.DenseThresholdCases.VwinOfRow",
+      "declarationName": "UpperTheory.One.vwin_of_row",
+      "statement": "Row0b 条件蕴含 UpperTheory.Top.VWin。",
+      "description": "Row0b 条件蕴含 UpperTheory.Top.VWin。",
+      "proofExplanation": "用 h 构造 OpenImageCondition，并将 baseChangeN 与 h 传给 automorphic_window_of_inputs。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/VwinOfRow.lean",
+          "startLine": 4,
+          "endLine": 5,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/VwinOfRow.lean#L4-L5",
+          "label": "UpperTheory.One.vwin_of_row",
+          "sha256": "d2df45a5cf337190ae6f885e8e43056ae4e804ae8da250a2ab0abd64b1ca7080"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "rect",
+      "label": "局部 Langlands 参数的存在性",
+      "module": "Development.AutomorphicArithmetic.Foundations.LocalLanglands.LocalCentralUnits.RecTExists",
+      "declarationName": "UpperTheory.Zero.LLC.recTExists",
+      "statement": "构造 RecTExists，提供具有维数、扭曲、中心、对偶、单射性、深度与类型兼容性质的局部参数。",
+      "description": "构造 RecTExists，提供具有维数、扭曲、中心、对偶、单射性、深度与类型兼容性质的局部参数。",
+      "proofExplanation": "从 artEx 和 cuspEx 开始，通过 exists_isLExt 延拓并逐字段证明 IsRecT 所需性质。它是组装主结论的显式已命名输入。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/Foundations/LocalLanglands/LocalCentralUnits/RecTExists.lean",
+          "startLine": 20,
+          "endLine": 66,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/Foundations/LocalLanglands/LocalCentralUnits/RecTExists.lean#L20-L66",
+          "label": "UpperTheory.Zero.LLC.recTExists",
+          "sha256": "2411dd4cb455607d3f39761258ccde5c9e945443c421e69a626e4148a79824ab"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "row-source",
+      "label": "Galois 局部全局兼容的关闭点",
+      "module": "Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.IntegralStructures.RowSrc",
+      "declarationName": "UpperTheory.Gal.Int.galoisLocalGlobalStrong_recParameter",
+      "statement": "不再要求外部参数，构造 UpperTheory.GalStar.Row0b recT。",
+      "description": "不再要求外部参数，构造 UpperTheory.GalStar.Row0b recT。",
+      "proofExplanation": "将 UpperTheory.TP.K.tLiftK 交给 galoisRepresentations_of_thetaLift。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/RowSrc.lean",
+          "startLine": 6,
+          "endLine": 6,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/RowSrc.lean#L6-L6",
+          "label": "UpperTheory.Gal.Int.galoisLocalGlobalStrong_recParameter",
+          "sha256": "0cfbca6cb7d1da543ee9d24c30faeeb3f68838f91c4f6c2c0e682e025c8b9a44"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "galois-theta",
+      "label": "theta 提升导出 Galois 表示",
+      "module": "Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.IntegralStructures.GaloisRepresentationsOfThetaLift",
+      "declarationName": "UpperTheory.Gal.Int.galoisRepresentations_of_thetaLift",
+      "statement": "TLiftK 输入蕴含 Row0b recT。",
+      "description": "TLiftK 输入蕴含 Row0b recT。",
+      "proofExplanation": "将 geoOne_holds 与给定的提升输入送入 galoisLocalGlobalStrong_of_geometry_lift。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/GaloisRepresentationsOfThetaLift.lean",
+          "startLine": 6,
+          "endLine": 6,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/GaloisRepresentationsOfThetaLift.lean#L6-L6",
+          "label": "UpperTheory.Gal.Int.galoisRepresentations_of_thetaLift",
+          "sha256": "3f72f1644a6214bb5b90a5e9bac5e33b0474d52eb22f2f1841d443ed342531c2"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "theta-k",
+      "label": "theta 提升输入的构造",
+      "module": "Development.AutomorphicArithmetic.Foundations.GaloisRepresentations.ThetaParseval.ThetaKernels.TLiftK",
+      "declarationName": "UpperTheory.TP.K.tLiftK",
+      "statement": "构造 UpperTheory.TP.TLiftK。",
+      "description": "构造 UpperTheory.TP.TLiftK。",
+      "proofExplanation": "直接引用 UpperTheory.TP.tLift_holds_k；证明依赖的进一步展开属于完整模块索引的下钻范围。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/ThetaParseval/ThetaKernels/TLiftK.lean",
+          "startLine": 4,
+          "endLine": 5,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/ThetaParseval/ThetaKernels/TLiftK.lean#L4-L5",
+          "label": "UpperTheory.TP.K.tLiftK",
+          "sha256": "cb810adcf09297fdd356174b67d6abdc43c079dbe65797b1f47383871c1bf6ca"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "automorphic-window",
+      "label": "局部、自守与 CM 输入汇合",
+      "module": "Development.AutomorphicArithmetic.AutomorphicVarieties.ModularityArgument.ThresholdArguments.DenseThresholdCases.TopMainZj",
+      "declarationName": "UpperTheory.One.Join.automorphic_window_of_inputs",
+      "statement": "OpenImageCondition、BaseChangeIsobaricN 与 RowT 输入蕴含 VWin。",
+      "description": "OpenImageCondition、BaseChangeIsobaricN 与 RowT 输入蕴含 VWin。",
+      "proofExplanation": "先构造 cm_abelian_inputs_from_literature，再调用 v_window_of_depth_zero_residual_bc_cm；该调用继续组装局部、自守、Galois 上同调与 CM 假设包。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/TopMainZj.lean",
+          "startLine": 71,
+          "endLine": 74,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/TopMainZj.lean#L71-L74",
+          "label": "UpperTheory.One.Join.automorphic_window_of_inputs",
+          "sha256": "f824d3f7873a493432bdfcbdc279fa82d70a6a9dbaac44c2a30316cada2eae3e"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "base-change",
+      "label": "基变换输入的构造",
+      "module": "Development.AutomorphicArithmetic.Foundations.BaseChangeIdentities.DefiniteNHolds",
+      "declarationName": "UpperTheory.BaseChangeIdentities.baseChangeN",
+      "statement": "构造 BaseChangeIsobaricN。",
+      "description": "构造 BaseChangeIsobaricN。",
+      "proofExplanation": "将 HeckeLevelFrameExistence.candFin 传给 baseChangeN_of。",
+      "group": "mainline",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/Foundations/BaseChangeIdentities/DefiniteNHolds.lean",
+          "startLine": 5,
+          "endLine": 6,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/Foundations/BaseChangeIdentities/DefiniteNHolds.lean#L5-L6",
+          "label": "UpperTheory.BaseChangeIdentities.baseChangeN",
+          "sha256": "a8dbda049d3f53757e79628e6d3ec1b2ff3cc239057f596d2f87ca9f9f1c3905"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "audit-kform",
+      "label": "核展开：kform_unfold",
+      "module": "Formalism.LocalToGlobal.SiegelLatticeTheory.ClosedLocalOrbits.GaugeLatticeShifts.KExpCut",
+      "declarationName": "Formalism.L2.SG.TermOp.KExpCut.kform_unfold",
+      "statement": "在 FoldReadyX、FundBridge、两个 FoldOK、两个 InHH 与横截面/基本域条件下，把归一化内积 Kform 写为双陪集上的积分和。",
+      "description": "在 FoldReadyX、FundBridge、两个 FoldOK、两个 InHH 与横截面/基本域条件下，把归一化内积 Kform 写为双陪集上的积分和。",
+      "proofExplanation": "从两个 FoldOK 取出界与基本域；用 InHH 提取 MemLp；调用 fold_l2_bound_c 后将 L² 内积改写成积分，并处理复共轭。",
+      "group": "audit",
+      "note": "此节点是延伸审查入口。这里只列已找到的局部引用，不据模块导入推断其必然进入最终定理的证明项闭包。 本节点是此前讨论过的源码审查入口。本次未运行 Lean 声明依赖闭包提取，因此不据文件名或 import 路径断言它被根定理的证明项使用。",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/KExpCut.lean",
+          "startLine": 519,
+          "endLine": 553,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/KExpCut.lean#L519-L553",
+          "label": "Formalism.L2.SG.TermOp.KExpCut.kform_unfold",
+          "sha256": "769e7b590bc95de93bdfa5a94d07d4ed7ced3fc87d18d8aa090fed2dee912040"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "audit-fold",
+      "label": "Poincaré 级数内积的全局引理",
+      "module": "Formalism.PeriodIntegrals.OrbitalBoundsConclusion.PoincareSeriesInner",
+      "declarationName": "fold_l2_bound_c",
+      "statement": "对满足指定拓扑、可测性与 Haar 测度条件的群，给出 PoincareSeriesInner。",
+      "description": "对满足指定拓扑、可测性与 Haar 测度条件的群，给出 PoincareSeriesInner。",
+      "proofExplanation": "直接将 complex_double_coset 提供给 fold_L2_complex_of。",
+      "group": "audit",
+      "note": "此节点是延伸审查入口。这里只列已找到的局部引用，不据模块导入推断其必然进入最终定理的证明项闭包。 本节点是此前讨论过的源码审查入口。本次未运行 Lean 声明依赖闭包提取，因此不据文件名或 import 路径断言它被根定理的证明项使用。",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Formalism/PeriodIntegrals/OrbitalBoundsConclusion/PoincareSeriesInner.lean",
+          "startLine": 6,
+          "endLine": 7,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/PeriodIntegrals/OrbitalBoundsConclusion/PoincareSeriesInner.lean#L6-L7",
+          "label": "fold_l2_bound_c",
+          "sha256": "f42a8e215401c695deecb0e0ffb30f4c3a58aea6695165e89d95e6fb9f162112"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "audit-fold-complex",
+      "label": "把复双陪集公式提升为 L² 结论",
+      "module": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.ComplexDoubleCosets.FoldL2ComplexOf",
+      "declarationName": "PI.PoincareSeriesInner.W.fold_L2_complex_of",
+      "statement": "CplxDC 与群/测度条件蕴含 PoincareSeriesInner。",
+      "description": "CplxDC 与群/测度条件蕴含 PoincareSeriesInner。",
+      "proofExplanation": "使用 overlapMultiplicityProperties、foldBound_holds、lintegralTransversalSum 与 fold_dc_unfold 建立绝对可积性，再把复值双陪集展开用于内积。",
+      "group": "audit",
+      "note": "此节点是延伸审查入口。这里只列已找到的局部引用，不据模块导入推断其必然进入最终定理的证明项闭包。 本节点是此前讨论过的源码审查入口。本次未运行 Lean 声明依赖闭包提取，因此不据文件名或 import 路径断言它被根定理的证明项使用。",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ComplexDoubleCosets/FoldL2ComplexOf.lean",
+          "startLine": 16,
+          "endLine": 95,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ComplexDoubleCosets/FoldL2ComplexOf.lean#L16-L95",
+          "label": "PI.PoincareSeriesInner.W.fold_L2_complex_of",
+          "sha256": "d5d1d8011a3bc6dc3bf98afbaa5b6d67ecf1b438dea1881b6ac0c38ddd7ec798"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "audit-double-coset",
+      "label": "复值双陪集展开",
+      "module": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.ComplexDoubleCosets.ComplexDoubleCoset",
+      "declarationName": "PI.PoincareSeriesInner.W.complex_double_coset",
+      "statement": "构造 CplxDC，即所需复值双陪集展开公式。",
+      "description": "构造 CplxDC，即所需复值双陪集展开公式。",
+      "proofExplanation": "将复数分解为实部和虚部的正负四部分，以非负积分展开和可积性论证恢复复值恒等式。",
+      "group": "audit",
+      "note": "此节点是延伸审查入口。这里只列已找到的局部引用，不据模块导入推断其必然进入最终定理的证明项闭包。 本节点是此前讨论过的源码审查入口。本次未运行 Lean 声明依赖闭包提取，因此不据文件名或 import 路径断言它被根定理的证明项使用。",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ComplexDoubleCosets/ComplexDoubleCoset.lean",
+          "startLine": 67,
+          "endLine": 132,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ComplexDoubleCosets/ComplexDoubleCoset.lean#L67-L132",
+          "label": "PI.PoincareSeriesInner.W.complex_double_coset",
+          "sha256": "bc0c256d15a03292dffc5f09c1c3d974acfed8ac4ada5d2d6bad84bc6da0cf44"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "audit-inhh-def",
+      "label": "InHH 的精确内容",
+      "module": "Formalism.LocalToGlobal.SiegelLatticeTheory.HaarTransversals.PoincareInHH",
+      "declarationName": "Formalism.L2.SG.PoincareInHH.PoincareSetting.InHH",
+      "statement": "对合法横截面，Poincaré 级数绝对可和、与代表元选择无关、属于 L²，且被指定投影组合固定。",
+      "description": "对合法横截面，Poincaré 级数绝对可和、与代表元选择无关、属于 L²，且被指定投影组合固定。",
+      "proofExplanation": "这是命题定义，不是 theorem 或 axiom。kform_unfold 把它作为显式假设；inHH_of 在另一文件中提供一条有条件的构造途径。",
+      "group": "audit",
+      "note": "此节点是延伸审查入口。这里只列已找到的局部引用，不据模块导入推断其必然进入最终定理的证明项闭包。 本节点是此前讨论过的源码审查入口。本次未运行 Lean 声明依赖闭包提取，因此不据文件名或 import 路径断言它被根定理的证明项使用。",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Formalism/LocalToGlobal/SiegelLatticeTheory/HaarTransversals/PoincareInHH.lean",
+          "startLine": 194,
+          "endLine": 199,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/LocalToGlobal/SiegelLatticeTheory/HaarTransversals/PoincareInHH.lean#L194-L199",
+          "label": "Formalism.L2.SG.PoincareInHH.PoincareSetting.InHH",
+          "sha256": "aefc3163325ffcdb11603f7244f4449ebde4087a698c4553c6ba4b4d52e645e1"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "audit-inhh",
+      "label": "从可和、投影与不变性证明 InHH",
+      "module": "Formalism.LocalToGlobal.SiegelLatticeTheory.HaarTransversals.UnitaryHaarProducts.InHHCut",
+      "declarationName": "Formalism.L2.SG.PoincareInHH.Cut.inHH_of",
+      "statement": "给定 Poincaré 级数有限性/L² 性、FoldOK、可测性、卷积固定性与层条件，得到 InHH。",
+      "description": "给定 Poincaré 级数有限性/L² 性、FoldOK、可测性、卷积固定性与层条件，得到 InHH。",
+      "proofExplanation": "逐项证明绝对可和、横截面无关、MemLp 与投影固定性质。请保留这些输入，不把有条件引理展示成无条件结论。",
+      "group": "audit",
+      "note": "此节点是延伸审查入口。这里只列已找到的局部引用，不据模块导入推断其必然进入最终定理的证明项闭包。 本节点是此前讨论过的源码审查入口。本次未运行 Lean 声明依赖闭包提取，因此不据文件名或 import 路径断言它被根定理的证明项使用。",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Formalism/LocalToGlobal/SiegelLatticeTheory/HaarTransversals/UnitaryHaarProducts/InHHCut.lean",
+          "startLine": 405,
+          "endLine": 433,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/LocalToGlobal/SiegelLatticeTheory/HaarTransversals/UnitaryHaarProducts/InHHCut.lean#L405-L433",
+          "label": "Formalism.L2.SG.PoincareInHH.Cut.inHH_of",
+          "sha256": "ba1c3f15bed223ae3bb5821302a8cc507491f521cf8e71e546cd58cf6fc9d679"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "audit-perron",
+      "label": "截断 Perron 与 von Mangoldt 界",
+      "module": "Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.TruncatedPerronOfLeTwoVonMangoldt",
+      "declarationName": "GlobalTheory.PerronCoeff.truncated_perron_of_le_two_vonMangoldt",
+      "statement": "存在 C>0：若 |c(n)|≤2Λ(n)、2≤T≤u，则系数部分和与高度 T 截断 Perron 积分之差≤C(u(log u)²/T+log u)。",
+      "description": "存在 C>0：若 |c(n)|≤2Λ(n)、2≤T≤u，则系数部分和与高度 T 截断 Perron 积分之差≤C(u(log u)²/T+log u)。",
+      "proofExplanation": "从导入模块中的 kernel_bound 出发，给出统一常数并分别估计截断误差。本次仅审读这一陈述和证明结构。",
+      "group": "audit",
+      "note": "此节点是延伸审查入口。这里只列已找到的局部引用，不据模块导入推断其必然进入最终定理的证明项闭包。 本节点是此前讨论过的源码审查入口。本次未运行 Lean 声明依赖闭包提取，因此不据文件名或 import 路径断言它被根定理的证明项使用。",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/TruncatedPerronOfLeTwoVonMangoldt.lean",
+          "startLine": 9,
+          "endLine": 157,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/TruncatedPerronOfLeTwoVonMangoldt.lean#L9-L157",
+          "label": "GlobalTheory.PerronCoeff.truncated_perron_of_le_two_vonMangoldt",
+          "sha256": "5b0744bf3fbdcd97414c1c0f82ee2045bedd9396732b15af4c7af6f8d5627ff1"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    },
+    {
+      "id": "audit-theta-unique",
+      "label": "Adèle theta 泛函唯一性",
+      "module": "Development.AutomorphicSpectrum.Proofs.MembershipProofs.AdelicCharacterRationalDual",
+      "declarationName": "GlobalTheory.CompanionTheory.ThetaUniq.theta_unique",
+      "statement": "在列出的数域、连续非平凡加法特征及有理不变性条件下，满足有理 Heisenberg 不变性的可容许泛函是 thetaSum 的标量倍数。",
+      "description": "在列出的数域、连续非平凡加法特征及有理不变性条件下，满足有理 Heisenberg 不变性的可容许泛函是 thetaSum 的标量倍数。",
+      "proofExplanation": "先由 unitary_and_annihilator_eq 得到单位模性质，再从平移与调制不变性应用 level_zero、level_span 和 coset 指示函数的张成结果。",
+      "group": "audit",
+      "note": "此节点是延伸审查入口。这里只列已找到的局部引用，不据模块导入推断其必然进入最终定理的证明项闭包。 本节点是此前讨论过的源码审查入口。本次未运行 Lean 声明依赖闭包提取，因此不据文件名或 import 路径断言它被根定理的证明项使用。",
+      "status": "source",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicSpectrum/Proofs/MembershipProofs/AdelicCharacterRationalDual.lean",
+          "startLine": 474,
+          "endLine": 527,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicSpectrum/Proofs/MembershipProofs/AdelicCharacterRationalDual.lean#L474-L527",
+          "label": "GlobalTheory.CompanionTheory.ThetaUniq.theta_unique",
+          "sha256": "26530598635722e07f2a7f2805cf7400c2fdf32466f43c369447fb443262b104"
+        }
+      ],
+      "sourceAudit": "declaration and source body inspected; no Lean execution",
+      "verification": "本次已定位声明及源码引用；编译与内核检查引用图谱导读中的外部报告。"
+    }
+  ],
+  "edges": [
+    {
+      "from": "rh-of-all",
+      "to": "rh",
+      "kind": "proof-reference",
+      "reason": "根定理的证明项直接为 rhOfAll。",
+      "evidence": [
+        {
+          "path": "src/Main.lean",
+          "startLine": 4,
+          "endLine": 4,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Main.lean#L4",
+          "label": "riemannHypothesis 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "rh-of-all",
+      "to": "zeta-explicit",
+      "kind": "proof-reference",
+      "reason": "展开写法也直接使用 rhOfAll。",
+      "evidence": [
+        {
+          "path": "src/Main.lean",
+          "startLine": 6,
+          "endLine": 6,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Main.lean#L6",
+          "label": "riemannZeta_eq_zero_re 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "all-chi",
+      "to": "dirichlet-right",
+      "kind": "proof-reference",
+      "reason": "根定理直接使用 allChi。",
+      "evidence": [
+        {
+          "path": "src/Main.lean",
+          "startLine": 8,
+          "endLine": 8,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Main.lean#L8",
+          "label": "LFunction_ne_zero_of_half_lt_re 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "claim-all",
+      "to": "dirichlet-strip",
+      "kind": "proof-reference",
+      "reason": "取 claimAll.2.1。",
+      "evidence": [
+        {
+          "path": "src/Main.lean",
+          "startLine": 10,
+          "endLine": 10,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Main.lean#L10",
+          "label": "LFunction_eq_zero_re 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "crit-all",
+      "to": "dirichlet-primitive",
+      "kind": "proof-reference",
+      "reason": "根定理直接使用 critAll。",
+      "evidence": [
+        {
+          "path": "src/Main.lean",
+          "startLine": 12,
+          "endLine": 12,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Main.lean#L12",
+          "label": "LFunction_eq_zero_re_of_isPrimitive 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "final-every",
+      "to": "all-chi",
+      "kind": "proof-reference",
+      "reason": "allChi 的证明项直接引用该定理。",
+      "evidence": [
+        {
+          "path": "src/Supplements/Kernels/MainTheorems.lean",
+          "startLine": 7,
+          "endLine": 7,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Supplements/Kernels/MainTheorems.lean#L7",
+          "label": "allChi 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "rh-every",
+      "to": "rh-of-all",
+      "kind": "proof-reference",
+      "reason": "应用从 EveryCharacter 到 RH 的归约。",
+      "evidence": [
+        {
+          "path": "src/Supplements/Kernels/MainTheorems.lean",
+          "startLine": 9,
+          "endLine": 9,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Supplements/Kernels/MainTheorems.lean#L9",
+          "label": "rhOfAll 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "all-chi",
+      "to": "rh-of-all",
+      "kind": "proof-reference",
+      "reason": "为归约提供 EveryCharacter 的证明。",
+      "evidence": [
+        {
+          "path": "src/Supplements/Kernels/MainTheorems.lean",
+          "startLine": 9,
+          "endLine": 9,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Supplements/Kernels/MainTheorems.lean#L9",
+          "label": "rhOfAll 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "crit-line",
+      "to": "crit-all",
+      "kind": "proof-reference",
+      "reason": "应用本原特征的函数方程归约。",
+      "evidence": [
+        {
+          "path": "src/Supplements/Kernels/MainTheorems.lean",
+          "startLine": 13,
+          "endLine": 13,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Supplements/Kernels/MainTheorems.lean#L13",
+          "label": "critAll 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "all-chi",
+      "to": "crit-all",
+      "kind": "proof-reference",
+      "reason": "为临界线归约提供全部特征的右侧非零结论。",
+      "evidence": [
+        {
+          "path": "src/Supplements/Kernels/MainTheorems.lean",
+          "startLine": 13,
+          "endLine": 13,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Supplements/Kernels/MainTheorems.lean#L13",
+          "label": "critAll 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "all-chi",
+      "to": "claim-all",
+      "kind": "proof-reference",
+      "reason": "使用 allChi 构造三个合取分量。",
+      "evidence": [
+        {
+          "path": "src/Supplements/Kernels/MainTheorems.lean",
+          "startLine": 16,
+          "endLine": 16,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Supplements/Kernels/MainTheorems.lean#L16",
+          "label": "claimAll 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "claim-strip",
+      "to": "claim-all",
+      "kind": "proof-reference",
+      "reason": "由半平面结论构造临界带分量。",
+      "evidence": [
+        {
+          "path": "src/Supplements/Kernels/MainTheorems.lean",
+          "startLine": 16,
+          "endLine": 16,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Supplements/Kernels/MainTheorems.lean#L16",
+          "label": "claimAll 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "rh-right",
+      "to": "rh-every",
+      "kind": "proof-reference",
+      "reason": "取模 1 特征后应用 ζ 的右侧无零点归约。",
+      "evidence": [
+        {
+          "path": "src/Formalism/GammaFactorNonvanishing/CritLine.lean",
+          "startLine": 30,
+          "endLine": 30,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/GammaFactorNonvanishing/CritLine.lean#L30",
+          "label": "Formalism.VW.rh_of_every 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "final-row",
+      "to": "final-every",
+      "kind": "proof-reference",
+      "reason": "最终定理调用行条件归约。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean",
+          "startLine": 11,
+          "endLine": 11,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean#L11",
+          "label": "UpperTheory.FinalTheorems.everyCharacter 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "row-source",
+      "to": "final-every",
+      "kind": "proof-reference",
+      "reason": "为行条件归约提供无外部参数的证明。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean",
+          "startLine": 11,
+          "endLine": 11,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean#L11",
+          "label": "UpperTheory.FinalTheorems.everyCharacter 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "literature-vwin",
+      "to": "final-row",
+      "kind": "proof-reference",
+      "reason": "用输入包与窗口条件构造主结论。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean",
+          "startLine": 8,
+          "endLine": 8,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean#L8",
+          "label": "UpperTheory.FinalTheorems.everyCharacter_of_row 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "rect",
+      "to": "final-row",
+      "kind": "proof-reference",
+      "reason": "输入包中显式填入 recTExists。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean",
+          "startLine": 8,
+          "endLine": 8,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean#L8",
+          "label": "UpperTheory.FinalTheorems.everyCharacter_of_row 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "vwin-row",
+      "to": "final-row",
+      "kind": "proof-reference",
+      "reason": "由同一行条件构造 VWin。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean",
+          "startLine": 8,
+          "endLine": 8,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean#L8",
+          "label": "UpperTheory.FinalTheorems.everyCharacter_of_row 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "theta-matching",
+      "to": "literature-vwin",
+      "kind": "proof-reference",
+      "reason": "显式使用 theta 积分与局部匹配汇合定理。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/EveryCharacterOfLiteratureOfVWin.lean",
+          "startLine": 811,
+          "endLine": 811,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/EveryCharacterOfLiteratureOfVWin.lean#L811",
+          "label": "UpperTheory.LiteratureTheorems.every_character_of_literature_of_vWin 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "definite-hyps",
+      "to": "theta-matching",
+      "kind": "proof-reference",
+      "reason": "构造确定侧非空假设包。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SiegelEisensteinSecondTermHypotheses.lean",
+          "startLine": 73,
+          "endLine": 73,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SiegelEisensteinSecondTermHypotheses.lean#L73",
+          "label": "UpperTheory.Lit.every_character_of_theta_integrals_local_matching 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "top-every",
+      "to": "theta-matching",
+      "kind": "proof-reference",
+      "reason": "将假设包与 VWin 交给顶层归约。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SiegelEisensteinSecondTermHypotheses.lean",
+          "startLine": 72,
+          "endLine": 72,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/SiegelEisensteinSecondTermHypotheses.lean#L72",
+          "label": "UpperTheory.Lit.every_character_of_theta_integrals_local_matching 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "top-zero",
+      "to": "top-every",
+      "kind": "proof-reference",
+      "reason": "先构造本原族的 ZeroFreeAll。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopPlug.lean",
+          "startLine": 18,
+          "endLine": 18,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopPlug.lean#L18",
+          "label": "UpperTheory.Top.every_character_of_green_v_win 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "imprimitive",
+      "to": "top-every",
+      "kind": "proof-reference",
+      "reason": "再扩到所有 Dirichlet 特征。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopPlug.lean",
+          "startLine": 18,
+          "endLine": 18,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopPlug.lean#L18",
+          "label": "UpperTheory.Top.every_character_of_green_v_win 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "zero-free-top",
+      "to": "top-zero",
+      "kind": "proof-reference",
+      "reason": "la 取 3/2 后调用窗口总归约。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopPlug.lean",
+          "startLine": 14,
+          "endLine": 14,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/TopPlug.lean#L14",
+          "label": "UpperTheory.Top.zero_free_all_of_green_v_win 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "tied-cyc",
+      "to": "zero-free-top",
+      "kind": "proof-reference",
+      "reason": "把族窗口输入转为循环层无零点。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/ZeroFreeAllOfTopG.lean",
+          "startLine": 28,
+          "endLine": 28,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/ZeroFreeAllOfTopG.lean#L28",
+          "label": "UpperTheory.Top.zeroFreeAll_of_topG 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "form-b",
+      "to": "zero-free-top",
+      "kind": "proof-reference",
+      "reason": "为循环层归约提供 FormB 证明。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/ZeroFreeAllOfTopG.lean",
+          "startLine": 29,
+          "endLine": 29,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/CharacterBoxes/ZeroFreeAllOfTopG.lean#L29",
+          "label": "UpperTheory.Top.zeroFreeAll_of_topG 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "tied-levels",
+      "to": "tied-cyc",
+      "kind": "proof-reference",
+      "reason": "将循环层包装为每个特征的适用层。",
+      "evidence": [
+        {
+          "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean",
+          "startLine": 93,
+          "endLine": 93,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean#L93",
+          "label": "Formalism.HC.zeroFreeOn_of_tiedWin_cyc 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "level-tied",
+      "to": "tied-levels",
+      "kind": "proof-reference",
+      "reason": "逐层获得 ZeroFreeLevel。",
+      "evidence": [
+        {
+          "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean",
+          "startLine": 88,
+          "endLine": 88,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/TopWin.lean#L88",
+          "label": "Formalism.HC.zeroFreeOn_of_tiedWin 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "rpow-window",
+      "to": "form-b",
+      "kind": "proof-reference",
+      "reason": "把 Level 的窗口幂界转为 CharFamily 的无零点结论。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/PrimitiveCosets/Imports.lean",
+          "startLine": 13,
+          "endLine": 13,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/PrimitiveCosets/Imports.lean#L13",
+          "label": "UpperTheory.Comparison₂.formB 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "automorphic-window",
+      "to": "vwin-row",
+      "kind": "proof-reference",
+      "reason": "由输入构造自守窗口。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/VwinOfRow.lean",
+          "startLine": 5,
+          "endLine": 5,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/VwinOfRow.lean#L5",
+          "label": "UpperTheory.One.vwin_of_row 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "base-change",
+      "to": "vwin-row",
+      "kind": "proof-reference",
+      "reason": "显式提供基变换输入。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/VwinOfRow.lean",
+          "startLine": 5,
+          "endLine": 5,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/AutomorphicVarieties/ModularityArgument/ThresholdArguments/DenseThresholdCases/VwinOfRow.lean#L5",
+          "label": "UpperTheory.One.vwin_of_row 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "galois-theta",
+      "to": "row-source",
+      "kind": "proof-reference",
+      "reason": "应用 theta 提升到 Galois 行条件的定理。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/RowSrc.lean",
+          "startLine": 6,
+          "endLine": 6,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/RowSrc.lean#L6",
+          "label": "UpperTheory.Gal.Int.galoisLocalGlobalStrong_recParameter 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "theta-k",
+      "to": "row-source",
+      "kind": "proof-reference",
+      "reason": "显式提供 TLiftK 证明。",
+      "evidence": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/RowSrc.lean",
+          "startLine": 6,
+          "endLine": 6,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/Foundations/GaloisRepresentations/IntegralStructures/RowSrc.lean#L6",
+          "label": "UpperTheory.Gal.Int.galoisLocalGlobalStrong_recParameter 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "audit-fold",
+      "to": "audit-kform",
+      "kind": "proof-reference",
+      "reason": "kform_unfold 的证明体显式调用这一 Poincaré 内积引理。",
+      "evidence": [
+        {
+          "path": "src/Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/KExpCut.lean",
+          "startLine": 535,
+          "endLine": 535,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/KExpCut.lean#L535",
+          "label": "Formalism.L2.SG.TermOp.KExpCut.kform_unfold 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "audit-fold-complex",
+      "to": "audit-fold",
+      "kind": "proof-reference",
+      "reason": "直接引用将 CplxDC 转为 PoincareSeriesInner 的定理。",
+      "evidence": [
+        {
+          "path": "src/Formalism/PeriodIntegrals/OrbitalBoundsConclusion/PoincareSeriesInner.lean",
+          "startLine": 7,
+          "endLine": 7,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/PeriodIntegrals/OrbitalBoundsConclusion/PoincareSeriesInner.lean#L7",
+          "label": "fold_l2_bound_c 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "audit-double-coset",
+      "to": "audit-fold",
+      "kind": "proof-reference",
+      "reason": "为该转换提供 CplxDC 证明。",
+      "evidence": [
+        {
+          "path": "src/Formalism/PeriodIntegrals/OrbitalBoundsConclusion/PoincareSeriesInner.lean",
+          "startLine": 7,
+          "endLine": 7,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/PeriodIntegrals/OrbitalBoundsConclusion/PoincareSeriesInner.lean#L7",
+          "label": "fold_l2_bound_c 的源码引用"
+        }
+      ],
+      "dependencySemantics": "prerequisite -> dependent; explicit source reference, not a compiled proof-term dependency extraction"
+    },
+    {
+      "from": "audit-inhh-def",
+      "to": "audit-kform",
+      "kind": "statement-reference",
+      "reason": "kform_unfold 的类型显式要求 InHH。",
+      "evidence": [
+        {
+          "path": "src/Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/KExpCut.lean",
+          "startLine": 521,
+          "endLine": 521,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/LocalToGlobal/SiegelLatticeTheory/ClosedLocalOrbits/GaugeLatticeShifts/KExpCut.lean#L521",
+          "label": "Formalism.L2.SG.TermOp.KExpCut.kform_unfold 的源码引用"
+        }
+      ],
+      "dependencySemantics": "definition -> statement containing it; this edge does not claim the construction theorem is called"
+    },
+    {
+      "from": "audit-inhh-def",
+      "to": "audit-inhh",
+      "kind": "statement-reference",
+      "reason": "inHH_of 的结论是 InHH；未据此建立 inHH_of 到 kform_unfold 的调用边。",
+      "evidence": [
+        {
+          "path": "src/Formalism/LocalToGlobal/SiegelLatticeTheory/HaarTransversals/UnitaryHaarProducts/InHHCut.lean",
+          "startLine": 412,
+          "endLine": 412,
+          "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/LocalToGlobal/SiegelLatticeTheory/HaarTransversals/UnitaryHaarProducts/InHHCut.lean#L412",
+          "label": "Formalism.L2.SG.PoincareInHH.Cut.inHH_of 的源码引用"
+        }
+      ],
+      "dependencySemantics": "definition -> statement containing it; this edge does not claim the construction theorem is called"
+    }
+  ]
+}

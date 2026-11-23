@@ -17,6 +17,7 @@ const DATASETS = {
   danus: { label: 'Danus · 原事实快照', graph: 'fact-graph.json' },
 }
 const ModuleExplorer = lazy(() => import('./ModuleExplorer.jsx'))
+const SemanticProofCanvas = lazy(() => import('./SemanticProofCanvas.jsx'))
 const initialDataset = () => {
   const value = new URLSearchParams(window.location.search).get('graph')
   return Object.hasOwn(DATASETS, value) ? value : 'goldbach'
@@ -120,6 +121,7 @@ function Canvas() {
   const [dataset, setDataset] = useState(initialDataset)
   const [reload, setReload] = useState(0)
   const [graph, setGraph] = useState(null)
+  const [semanticGraph, setSemanticGraph] = useState(null)
   const [selected, setSelected] = useState(null)
   const [moduleTarget, setModuleTarget] = useState(null)
   const [guideOpen, setGuideOpen] = useState(true)
@@ -133,6 +135,7 @@ function Canvas() {
     catch { return false }
   })
   const canvasRef = useRef(null)
+  const semanticControllerRef = useRef(null)
   const { fitView, setCenter, getZoom } = useReactFlow()
   const load = useCallback(() => setReload(value => value + 1), [])
   const onNodesChange = useCallback(changes => {
@@ -147,7 +150,7 @@ function Canvas() {
   useEffect(() => {
     const controller = new AbortController()
     const specification = DATASETS[dataset]
-    setGraph(null); setSelected(null); setModuleTarget(null); setGuideOpen(true); setError(''); setSearchId(''); setSearchError(''); setFlowReady(false); setActiveLevel(0)
+    setGraph(null); setSemanticGraph(null); setSelected(null); setModuleTarget(null); setGuideOpen(true); setError(''); setSearchId(''); setSearchError(''); setFlowReady(false); setActiveLevel(0)
     const fetchJson = async filename => {
       const response = await fetch(import.meta.env.BASE_URL + filename, { cache: 'no-store', signal: controller.signal })
       if (!response.ok) throw new Error('无法读取快照 ' + filename + '（HTTP ' + response.status + '）')
@@ -177,13 +180,14 @@ function Canvas() {
   const maxLevel = useMemo(() => graph ? Math.max(0, ...graph.facts.map(node => node.level)) : 0, [graph])
   const renderedNodes = useMemo(() => graph ? graph.nodes.map(node => ({ ...node, selected: node.id === selected?.id })) : [], [graph, selected])
   useEffect(() => {
-    if (graph && flowReady) {
+    if (graph && !graph.isProofGraph && flowReady) {
       const timer = setTimeout(() => fitView({ padding: .12, duration: 450, minZoom: .04, maxZoom: .72 }), 80)
       return () => clearTimeout(timer)
     }
   }, [graph, flowReady, fitView])
   useEffect(() => setActiveLevel(level => Math.min(level, maxLevel)), [maxLevel])
   const jump = useCallback(id => {
+    if (graph?.isProofGraph && semanticControllerRef.current?.focus(id)) return
     const node = graph?.nodes.find(item => item.id === id)
     if (node) setSelected(node.data)
   }, [graph])
@@ -191,9 +195,10 @@ function Canvas() {
     event?.preventDefault()
     const query = searchId.trim().toLocaleLowerCase()
     if (!query) { setSearchError('请输入节点名称、ID 或模块路径'); return }
-    const exact = graph?.nodes.find(node => node.id.toLocaleLowerCase() === query)
-    const matches = exact ? [exact] : graph?.nodes.filter(({ data }) => {
-      const evidence = [...safeArray(data.evidence), ...safeArray(graph.factDetails[data.id]?.links)].map(item => [item.path, item.label, item.url].filter(Boolean).join(' ')).join(' ')
+    const searchable = graph?.isProofGraph ? semanticControllerRef.current?.getSearchGraph() || graph : graph
+    const exact = searchable?.nodes.find(node => node.id.toLocaleLowerCase() === query || node.data.declarationName?.toLocaleLowerCase() === query)
+    const matches = exact ? [exact] : searchable?.nodes.filter(({ data }) => {
+      const evidence = [...safeArray(data.evidence), ...safeArray(searchable.factDetails[data.id]?.links)].map(item => [item.path, item.label, item.url].filter(Boolean).join(' ')).join(' ')
       return [data.id, data.title, data.preview, data.declarationName, data.module, evidence].join(' ').toLocaleLowerCase().includes(query)
     }) || []
     if (matches.length === 1) { setSearchError(''); jump(matches[0].id) }
@@ -213,7 +218,7 @@ function Canvas() {
     setActiveLevel(Math.max(0, Math.min(maxLevel, Math.round((centerY - 70) / 250))))
   }, [maxLevel])
   useEffect(() => {
-    if (!selected || !graph) return
+    if (!selected || !graph || graph.isProofGraph) return
     const node = graph.nodes.find(item => item.id === selected.id)
     if (!node) return
     const frame = requestAnimationFrame(() => setCenter(node.position.x + 120, node.position.y + 70, { zoom: .86, duration: 350 }))
@@ -238,11 +243,12 @@ function Canvas() {
     <main className="workspace">
       {graph?.isProofGraph && !selected && guideOpen && <ProofOverview graph={graph} onJump={jump} onOpenModule={setModuleTarget} onClose={() => setGuideOpen(false)}/>}
       {graph && (graph.isDependencyGraph
-        ? <DependencyInspector key={selected?.id || 'none'} node={selected} graph={graph} onClose={() => setSelected(null)} onJump={jump} onOpenModule={setModuleTarget} writeClipboard={writeClipboard}/>
+        ? <DependencyInspector key={selected?.id || 'none'} node={selected} graph={graph.isProofGraph && semanticGraph ? semanticGraph : graph} onClose={() => setSelected(null)} onJump={jump} onOpenModule={setModuleTarget} writeClipboard={writeClipboard}/>
         : <Inspector key={selected?.id || 'none'} node={selected} facts={graph.factDetails} onClose={() => setSelected(null)} onJump={jump}/>)}
       <div className="canvas" ref={canvasRef}>
         {error ? <div className="fatal"><h2>无法读取图谱</h2><p>{error}</p><button onClick={load}>重试</button></div>
           : !graph ? <div className="loading" role="status">读取 {DATASETS[dataset].label}…</div>
+          : graph.isProofGraph ? <Suspense fallback={<div className="loading" role="status">正在准备三级缩放画布…</div>}><SemanticProofCanvas key={dataset + '-' + reload} baseGraph={graph} selectedId={selected?.id} onSelect={setSelected} onGraphChange={setSemanticGraph} dark={dark} controllerRef={semanticControllerRef}/></Suspense>
           : <ReactFlow nodes={renderedNodes} edges={graph.edges} nodeTypes={nodeTypes} onNodesChange={onNodesChange} minZoom={.04} fitView fitViewOptions={{ padding: .12, minZoom: .04, maxZoom: .72 }} onInit={() => setFlowReady(true)} onMoveEnd={syncLevel} nodesDraggable={false} onNodeClick={(_, node) => jump(node.id)} proOptions={{ hideAttribution: true }}>
             <Background gap={16} size={1} color={dark ? '#243248' : '#dfe6ee'}/>
             <Controls showInteractive={false}/>

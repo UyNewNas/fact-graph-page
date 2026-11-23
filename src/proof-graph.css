@@ -91,6 +91,12 @@
 .proof-guide .guide-scope{font-size:10px;line-height:1.7;color:#8391a5}
 .guide-downloads{display:flex;gap:15px;flex-wrap:wrap;font-size:10px;margin:14px 0}
 .module-viewer-fallback{position:fixed;inset:0;z-index:30;display:grid;place-items:center;background:#f6f8fbf5;color:#526788}
+.proof-guide .guide-zoom{padding:11px 13px;background:#eff3fc;border:1px solid #dce4f3;border-radius:9px}
+.proof-guide .guide-zoom h3{margin-top:0;color:#637aa5}
+.proof-guide .guide-zoom p{font-size:11px;line-height:1.8;color:#74829a;margin:6px 0}
+.proof-guide .guide-zoom b{font-weight:600;color:#4b68a1}
+:root[data-theme="dark"] .proof-guide .guide-zoom{background:#17263c;border-color:#324664}
+:root[data-theme="dark"] .proof-guide .guide-zoom b{color:#a0b9e8}
 :root[data-theme="dark"] .proof-guide{background:linear-gradient(160deg,#142139 0%,#101a2a 55%)}
 :root[data-theme="dark"] .guide-counts>div,:root[data-theme="dark"] .guide-target{background:#152338;border-color:#34465f}
 :root[data-theme="dark"] .guide-counts b,:root[data-theme="dark"] .guide-target,:root[data-theme="dark"] .guide-chapters button,:root[data-theme="dark"] .guide-evidence a,:root[data-theme="dark"] .guide-downloads a{color:#9bb9ed}

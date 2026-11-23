@@ -6,18 +6,27 @@
 
 证明归属 **Levent Alpöge，与 Claude 合作**；本项目制作可追溯的阅读图与源码索引。依据 [CocoSgt 的公开镜像](https://github.com/CocoSgt/riemann-hypothesis-lean/tree/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4)，固定提交 `7cbf7a0c32fca1badf05931879a37c3f8a2b03b4`。原公告见 [alpo.ge/remark.pdf](https://alpo.ge/remark.pdf)。
 
-### 两层阅读方式
+### 随缩放展开的三个粒度
 
 | 层次 | 本次覆盖 | 关系含义 |
 | --- | --- | --- |
-| 中文证明图 | 34 个主线节点 + 8 个审查入口，38 条关系 | 人工对照源码定位的直接引用，或明确标记的命题接口 |
-| 完整源码模块索引 | 175,187 个 Lean 模块，17,374,215 行 | 显式 `import`；753,261 条项目内部关系、136,503 条外部关系 |
+| 1 · 总览 | 34 个主线节点 + 8 个审查入口，38 条关系 | 人工对照源码定位的直接引用，或明确标记的命题接口 |
+| 2 · 定理引用 | 247 个节点、307 条关系；加入可解析的直接声明引用 | 静态解析的声明源码引用，带引用位置与解析方式 |
+| 3 · 声明细节 | 1,140 个节点、1,710 条关系；继续展开下一轮引用 | 下一轮声明源码引用；当前边界仍可能有未展开前置 |
+
+在画布上滚轮放大，会自动从总览进入定理引用，再进入声明细节；缩小则收拢。三个粒度共用声明 ID，切换时保住鼠标附近共同节点的位置。左上角按钮可直接选择粒度，右上角“返回总览”恢复完整的 42 节点视图。点击节点查看当前层的前置、后续和固定版本源码；已加载的细层声明也可用顶部搜索定位。
+
+默认放大阈值为 50% 与 105%，缩小返回阈值为 36% 与 82%；缓冲区避免临界值附近来回切换。声明数据第一次展开时才读取，失败时保留可浏览的总览并提供重试。细层采用固定卡片尺寸与可见元素渲染，切层、测量节点和打开详情都不会自动适配整张图。
+
+新增关系仅来自已定位声明中的显式源码名称，保守处理作用域、导入可达性、重名和无法解析的引用。每个新增节点保留所属总览入口，每条边保留源码行和解析依据。**这三个粒度是有边界的源码引用展开，不是从 Lean 内核导出的完整证明项依赖闭包。** “当前展开边界”不表示公理、没有依赖或数学证明已经结束；覆盖与未解析情况记录在 `riemann-expansion.json`。
 
 主线覆盖 `Main.lean` 的五个根定理、`EveryCharacter` 的组装、窗口无零点判据、Galois / theta 输入，以及函数方程归约。每个节点展示中文命题、推导说明、完整 Lean 名称、固定提交源码行和证据。`kform_unfold`、Poincaré 内积、`InHH`、Perron 和 theta 唯一性等列为延伸审查入口，没有根据导入关系把它们强行接成根定理的直接证明依赖。
 
 点击 **全库模块** 可搜索整个源码目录，包括 `src/Main.lean` 形式的路径；查看固定版本源码、SHA-256、直接导入及直接使用者。邻域两侧各显示最多 10 个模块，下面的关系列表按 50 项分页，可以访问全部关系。索引只在打开浏览器时加载，分块按需读取。
 
-完整源码索引去掉 20,058 次重复显式导入；348 个外部模块只登记、不递归展开。模块图无环，`Main` 沿导入可到达全部 175,187 个项目模块。**这个全库覆盖是模块导入覆盖；42 节点图是阅读主线，不是全部声明的逐项证明展开。模块导入也不等同最终定理的证明项依赖闭包。**
+这个辅助浏览器覆盖 175,187 个 Lean 模块、17,374,215 行源码、753,261 条项目内部 `import` 和 136,503 条外部 `import`，与画布的三个声明粒度分开显示。
+
+完整源码索引去掉 20,058 次重复显式导入；348 个外部模块只登记、不递归展开。模块图无环，`Main` 沿导入可到达全部 175,187 个项目模块。这个全库覆盖是模块导入覆盖；42 节点总览是阅读主线。模块导入不等同最终定理的证明项依赖闭包。
 
 ### 来源与核验范围
 
@@ -37,6 +46,11 @@
 | 文件 | 内容 |
 | --- | --- |
 | `public/riemann-graph.json` | 主线、审查入口、逐边证据、声明位置、第三方核验记录 |
+| `public/riemann-expansion.json` | 两轮声明引用展开、稳定 ID、源码证据、所属总览入口与解析覆盖 |
+| `scripts/extract-riemann-expansion.py` | 保守解析声明名称、作用域、显式引用和固定版本源码证据 |
+| `scripts/test-riemann-expansion.py` | 提取行为与分发数据完整性校验，无需启动 Lean |
+| `src/semantic-zoom.js` | 三档缩放、阈值缓冲、布局、选择恢复与视口位置保持 |
+| `scripts/check-semantic-zoom.mjs` | 三层身份/关系完整性、布局与视口变换测试 |
 | `public/riemann-modules/manifest.json` | 覆盖率、版本、分组统计、源码聚合哈希及每个分发文件的哈希 |
 | `public/riemann-modules/names.json.gz` | 全量模块名称与稳定数字 ID |
 | `public/riemann-modules/chunks/*.json.gz` | 343 个分块中的直接导入、反向关系、行号和文件哈希 |
@@ -54,6 +68,9 @@ python3 scripts/extract-riemann-modules.py --source-dir "$RH_SOURCE" --output-di
 # 独立 Python 全库审查读取未压缩 JSON，必须在下一步压缩之前运行。
 python3 scripts/test-riemann-extractor.py --index public/riemann-modules --source-dir "$RH_SOURCE"
 node scripts/compress-riemann-index.mjs
+# 提取三档缩放使用的两轮声明引用，并独立核对每个源码位置及引用字符。
+python3 scripts/extract-riemann-expansion.py --source "$RH_SOURCE" --progress
+python3 scripts/test-riemann-expansion.py --data public/riemann-expansion.json --source "$RH_SOURCE"
 # Node 校验读取发布用 gzip 文件，并检查压缩前后哈希、全部关系和 Main 覆盖。
 RIEMANN_SOURCE_ROOT="$RH_SOURCE" npm run check:graph
 npm run build
@@ -61,7 +78,7 @@ npm run build
 
 普通部署无需取出上游源码；`npm run check:graph` 直接校验已提交的快照。需要换源码版本时，应同时更新策展节点、固定提交证据、提取脚本的版本参数及相应快照断言。
 
-## 当前完整证明图
+## Goldbach 任务依赖快照
 
 从[形式化项目看板](https://goldbach-proof-tree-oct21-timot.famous-pine-1741.chatgpt.site)导出，包含 **86 个交付物、108 条关系**：35 项已核验、30 项进行中、21 项未完成。
 

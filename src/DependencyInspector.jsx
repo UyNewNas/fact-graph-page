@@ -74,11 +74,13 @@ export default function DependencyInspector({ node, graph, onClose, onJump, onOp
   }
   return <aside className="inspector">
     <header><div><small>PROOF DEPENDENCY · SNAPSHOT</small><h2>{node.title}</h2></div><button onClick={onClose} aria-label="关闭节点详情">×</button></header>
-    <div className="pills"><b className={'status-' + status.key}>{status.label}</b><b>{graph.isProofGraph ? '证明节点' : '关键交付物'} · L{node.level}</b></div>
+    <div className="pills"><b className={'status-' + status.key}>{status.label}</b><b>{graph.isSemanticGraph ? (node.semanticTier === 1 ? '定理引用层' : '声明细节层') : `${graph.isProofGraph ? '证明节点' : '关键交付物'} · L${node.level}`}</b></div>
     <div className="copy-actions"><button type="button" onClick={() => copy('content')}>{copyState === 'content' ? '已复制' : '单内容复制'}</button><button type="button" onClick={() => copy('full')}>{copyState === 'full' ? '已复制' : '完整复制'}</button></div>
     {copyState === 'failed' && <p className="error" role="status">复制失败，请重试。</p>}
     <code className="fact-id">{node.id}</code>
     <p>{detail?.description}</p>
+    {node.isExpansionBoundary && <p className="snapshot-caveat">当前展开边界：此层未继续显示全部前置，不表示该声明没有依赖或属于公理。</p>}
+    {detail?.ownerId && detail.ownerId !== node.id && <section><h3>所属总览入口</h3><button className="relation" onClick={() => onJump(detail.ownerId)}>{byId.get(detail.ownerId)?.title || detail.ownerId}</button></section>}
     {detail?.statement && <section><h3>命题与适用范围</h3><pre className="proof-statement">{detail.statement}</pre></section>}
     {detail?.declarationName && <section><h3>Lean 声明</h3><code className="declaration-name">{detail.declarationName}</code>{detail.module && <button className="module-link" onClick={() => onOpenModule?.(detail.module)}>查看模块依赖 ↗<small>{detail.module}</small></button>}</section>}
     {detail?.proofExplanation && <section><h3>推导说明</h3><p className="proof-explanation">{detail.proofExplanation}</p></section>}

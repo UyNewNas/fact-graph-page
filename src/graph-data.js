@@ -17,6 +17,7 @@ const edgeKinds = {
   component: '已核验组件',
   alternative: '替代路线',
   'proof-reference': '源码中的证明引用',
+  'source-reference': '已解析的声明源码引用',
   'statement-reference': '定义 / 命题接口',
   'audited-subtree': '报告中的传递依赖',
 }

@@ -320,19 +320,32 @@ class SourceIndex:
     def scan_candidates(self):
         # The fast scan is a candidate locator only. Every candidate is later
         # parsed after comments/strings are masked and its Git blob is verified.
-        process = subprocess.Popen(["rg", "--no-heading", "--line-number", "--color", "never",
-                                    "--glob", "*.lean", RG_PATTERN, "src"], cwd=self.source,
-                                   text=True, encoding="utf-8", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        for line in process.stdout:
-            path, _, content = line.rstrip("\n").split(":", 2)
+        def record(path, content):
             match = DECL_LINE_RE.match(content)
             if match and path in self.tracked:
                 leaf = name_parts(match["name"])[-1]
                 self.by_leaf[leaf].add(path[4:-5].replace("/", "."))
                 self.candidate_count += 1
-        stderr = process.stderr.read()
-        if process.wait() not in (0, 1):
-            raise ValueError(f"declaration candidate scan failed: {stderr}")
+
+        try:
+            process = subprocess.Popen(["rg", "--no-heading", "--line-number", "--color", "never",
+                                        "--glob", "*.lean", RG_PATTERN, "src"], cwd=self.source,
+                                       text=True, encoding="utf-8", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except FileNotFoundError:
+            # Git already supplied the pinned Lean-file inventory. CI machines
+            # need no extra executable: use the identical declaration matcher.
+            self.log("rg unavailable; scanning tracked Lean files with Python")
+            for path in sorted(self.tracked):
+                with (self.source / path).open(encoding="utf-8") as lines:
+                    for content in lines:
+                        record(path, content)
+        else:
+            for line in process.stdout:
+                path, _, content = line.rstrip("\n").split(":", 2)
+                record(path, content)
+            stderr = process.stderr.read()
+            if process.wait() not in (0, 1):
+                raise ValueError(f"declaration candidate scan failed: {stderr}")
         self.log(f"Located {self.candidate_count:,} declaration candidates (not a completeness claim)")
 
     def load(self, name):

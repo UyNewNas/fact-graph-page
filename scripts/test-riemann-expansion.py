@@ -7,8 +7,10 @@ import argparse
 from collections import Counter
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -49,16 +51,38 @@ class ExpansionTests(unittest.TestCase):
         self.graph_path.write_text(json.dumps(self.graph))
         self.output = self.root / "expansion.json"
 
-    def extract(self, expect_success=True, commit=None):
+    def extract(self, expect_success=True, commit=None, env=None):
         proc = subprocess.run([sys.executable, str(SCRIPT), "--source", str(self.source),
                                "--overview", str(self.graph_path), "--output", str(self.output),
                                "--expected-commit", commit or self.commit, "--no-module-index"],
-                              text=True, capture_output=True)
+                              text=True, capture_output=True, env=env)
         if not expect_success:
             self.assertNotEqual(proc.returncode, 0, "Invalid source must be rejected")
             return proc
         self.assertEqual(proc.returncode, 0, f"Extraction failed:\n{proc.stdout}\n{proc.stderr}")
         return json.loads(self.output.read_text())
+
+    def test_missing_rg_uses_portable_scan_with_identical_expansion(self):
+        # Fails if candidate discovery requires rg or the fallback changes graph/evidence semantics.
+        self.fixture({
+            "A.lean": "namespace Ν\ndef «raw helper» : Nat := 1\n"
+                      "@[simp] theorem helper₂ : Nat := «raw helper»\n"
+                      "/-\ntheorem decoy : Nat := 99\n-/\nend Ν\n",
+            "Main.lean": "import A\ndef root : Nat := Ν.helper₂\n",
+        }, [("root", "root", "Main", 2)])
+        expected = self.extract()
+        git_only = self.root / "git-only-bin"
+        git_only.mkdir()
+        git_executable = shutil.which("git")
+        self.assertIsNotNone(git_executable, "The source verifier requires Git")
+        (git_only / "git").symlink_to(git_executable)
+        env = dict(os.environ, PATH=str(git_only))
+        self.assertIsNone(shutil.which("rg", path=env["PATH"]))
+        self.output.unlink()
+        actual = self.extract(env=env)
+        self.assertEqual({node["id"]: node["revealTier"] for node in actual["nodes"]},
+                         {"decl:Ν.helper₂": 1, "decl:Ν.«raw helper»": 2})
+        self.assertEqual(actual, expected)
 
     def test_nested_comments_strings_and_next_declaration_do_not_create_edges(self):
         # Fails if tokenization accepts comments/strings or crosses a declaration boundary.

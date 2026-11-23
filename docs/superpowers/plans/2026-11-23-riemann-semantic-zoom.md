@@ -38,5 +38,5 @@
 
 ## Task 4 — Review and publish
 - [x] Independent code/data review, correct material findings and verify regressions.
-- [ ] Commit to existing project using a non-forced update with expected head.
+- [x] Commit to existing project using a non-forced update with expected head.
 - [ ] Confirm Pages deployment at that commit and inspect real wheel-driven transitions online.

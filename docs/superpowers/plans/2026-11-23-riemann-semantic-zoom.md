@@ -39,4 +39,14 @@
 ## Task 4 — Review and publish
 - [x] Independent code/data review, correct material findings and verify regressions.
 - [x] Commit to existing project using a non-forced update with expected head.
-- [ ] Confirm Pages deployment at that commit and inspect real wheel-driven transitions online.
+- [x] Confirm Pages deployment at that commit and inspect real wheel-driven transitions online.
+
+## Verification record
+
+- Production application verified at `a589cf26f14b05f7709db71d77f6536a6d8454ff`; [Pages build and deployment](https://github.com/UyNewNas/fact-graph-page/actions/runs/45106620306) completed successfully.
+- `npm run check:graph` passed the existing dataset checks, 11 semantic-zoom tests, 14 extraction fixtures, and distributed expansion validation. The fixtures also pass without `rg`; Python falls back to the tracked Lean-file inventory.
+- The expansion contains 1,098 additional declarations and 1,672 additional relations. Independent evidence validation checked 572 pinned source files. Asset SHA-256: `275584a92a52df21020bcfdb4bd17d4446286547b4a5f847047cd0efa658e5f5`.
+- Desktop browser wheel interaction confirmed `42 / 38 → 247 / 307 → 1,140 / 1,710 → 247 / 307 → 42 / 38` (nodes / relations). The nearby `theta-matching` anchor retained its expected screen position during expansion.
+- Selecting the fine declaration `Formalism.BasicNotions.HWOf` then zooming out restored its `theta-matching` overview owner. Source links and explicit expansion-boundary text appeared in its inspector.
+- Tier buttons, return-to-overview, distant search for `Deduction.lemmaL`, and navigation to its `rpow-window` owner worked without an unintended tier change. Switching to Goldbach displayed the original 86 nodes / 108 relations; returning to RH restored the 42-node overview and initial fit.
+- This verifies the source-reference visualization and its interaction. No Lean compilation or kernel proof-term dependency extraction was performed.
